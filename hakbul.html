@@ -3,8 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HakBul — Çalışan Hakları Rehberi</title>
+<title id="page-title">HakBul — Çalışan Hakları Rehberi</title>
+<meta name="description" id="page-desc" content="Memur hakları, özel güvenlik ve iş güvenliği hakkında sorular ve yanıtlar. Türkiye'nin çalışan hakları rehberi.">
+<link rel="canonical" id="canonical-url" href="https://hakbul.com.tr/">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- FAQ Schema - dinamik olarak JS ile doldurulacak -->
+<script type="application/ld+json" id="faq-schema"></script>
+
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Nunito', sans-serif; background: #f0f4f8; color: #1e293b; }
@@ -19,7 +25,7 @@
     max-width: 900px; margin: 0 auto; padding: 14px 16px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .logo-wrap { display: flex; align-items: center; gap: 10px; }
+  .logo-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
   .logo-icon {
     width: 38px; height: 38px; border-radius: 10px;
     background: linear-gradient(135deg, #2563eb, #dc2626);
@@ -128,7 +134,7 @@
     background: #fff; border-radius: 12px; padding: 13px 16px;
     display: flex; justify-content: space-between; align-items: center;
     cursor: pointer; box-shadow: 0 1px 5px rgba(0,0,0,0.06);
-    border: 1px solid #e2e8f0; transition: all 0.15s;
+    border: 1px solid #e2e8f0; transition: all 0.15s; text-decoration: none;
   }
   .q-item:hover { border-color: #2563eb; background: #f8faff; }
   .q-text { font-size: 13px; font-weight: 600; color: #1e293b; }
@@ -151,26 +157,67 @@
   .cat-section-title { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
   .cat-section-title h3 { font-weight: 800; font-size: 16px; color: #0f172a; }
 
-  /* ACCORDION */
-  .accordion { background: #fff; border-radius: 12px; margin-bottom: 8px; overflow: hidden; border: 1px solid #e2e8f0; transition: border-color 0.2s; }
-  .accordion-header {
-    padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;
-    cursor: pointer; transition: background 0.15s;
+  /* SORU LİSTESİ (Sorular sayfası) */
+  .soru-list-item {
+    background: #fff; border-radius: 12px; padding: 14px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; box-shadow: 0 1px 5px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0; transition: all 0.15s;
+    margin-bottom: 8px; text-decoration: none;
   }
-  .accordion-header:hover { background: #f8faff; }
-  .accordion-q { font-weight: 700; font-size: 13px; color: #1e293b; }
-  .accordion-toggle { font-size: 20px; transition: transform 0.25s; font-weight: 300; line-height: 1; }
-  .accordion-toggle.open { transform: rotate(45deg); }
-  .accordion-body { padding: 0 16px 16px; display: none; }
-  .accordion-body.open { display: block; }
-  .accordion-body-inner {
-    border-left: 3px solid #2563eb; border-radius: 8px;
-    padding: 12px 14px; font-size: 13px; color: #334155; line-height: 1.75;
-    background: #f0f7ff; margin-bottom: 10px;
+  .soru-list-item:hover { border-color: currentColor; background: #f8faff; transform: translateX(3px); }
+  .soru-list-q { font-size: 13px; font-weight: 700; color: #1e293b; }
+  .soru-list-arrow { font-size: 16px; opacity: 0.4; }
+
+  /* SORU DETAY SAYFASI */
+  .soru-detay-header {
+    background: #fff; border-radius: 16px; padding: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 16px;
   }
-  .similar-wrap { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .similar-label { font-size: 11px; color: #64748b; }
-  .similar-link { font-size: 11px; font-weight: 700; text-decoration: underline; cursor: pointer; }
+  .soru-detay-breadcrumb {
+    font-size: 11px; color: #94a3b8; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .soru-detay-breadcrumb a {
+    color: #64748b; text-decoration: none; cursor: pointer;
+  }
+  .soru-detay-breadcrumb a:hover { color: #2563eb; }
+  .soru-detay-kat-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .soru-detay-soru {
+    font-size: clamp(17px, 4vw, 22px); font-weight: 900; color: #0f172a;
+    line-height: 1.35; margin-bottom: 0;
+  }
+  .soru-detay-cevap-wrap {
+    background: #fff; border-radius: 16px; padding: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 16px;
+  }
+  .soru-detay-cevap-title {
+    font-size: 13px; font-weight: 700; color: #64748b;
+    margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .soru-detay-cevap {
+    font-size: 15px; color: #334155; line-height: 1.85;
+    border-left: 4px solid #2563eb; padding-left: 16px;
+    background: #f8faff; border-radius: 0 8px 8px 0; padding: 16px 18px;
+  }
+  .soru-detay-benzer {
+    background: #fff; border-radius: 16px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  }
+  .soru-detay-benzer-title {
+    font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 12px;
+  }
+  .benzer-item {
+    padding: 10px 14px; border-radius: 10px; border: 1px solid #e2e8f0;
+    cursor: pointer; font-size: 13px; font-weight: 600; color: #1e293b;
+    margin-bottom: 7px; transition: all 0.15s; display: flex;
+    justify-content: space-between; align-items: center;
+  }
+  .benzer-item:hover { background: #f8faff; border-color: #2563eb; }
 
   /* ABOUT */
   .about-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
@@ -198,7 +245,7 @@
 <!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div class="logo-wrap">
+    <div class="logo-wrap" onclick="navigate('/')">
       <div class="logo-icon">?</div>
       <div>
         <div class="logo-text">HakBul</div>
@@ -206,14 +253,14 @@
       </div>
     </div>
     <nav>
-      <button class="nav-btn active" onclick="showPage('home', this)">Ana Sayfa</button>
-      <button class="nav-btn" onclick="showPage('sorular', this)">Sorular</button>
-      <button class="nav-btn" onclick="showPage('hakkinda', this)">Hakkında</button>
+      <button class="nav-btn" id="nav-home" onclick="navigate('/')">Ana Sayfa</button>
+      <button class="nav-btn" id="nav-sorular" onclick="navigate('/sorular')">Sorular</button>
+      <button class="nav-btn" id="nav-hakkinda" onclick="navigate('/hakkinda')">Hakkında</button>
     </nav>
   </div>
 </header>
 
-<!-- HERO -->
+<!-- HERO (sadece ana sayfa ve sorular listesinde görünür) -->
 <div class="hero" id="hero-section">
   <div class="hero-blob1"></div>
   <div class="hero-blob2"></div>
@@ -229,7 +276,7 @@
     </div>
 
     <div class="stats">
-      <div><div class="stat-val">900+</div><div class="stat-label">İçerik</div></div>
+      <div><div class="stat-val" id="stat-sayi">15</div><div class="stat-label">Soru & Cevap</div></div>
       <div><div class="stat-val">3</div><div class="stat-label">Kategori</div></div>
       <div><div class="stat-val">Ücretsiz</div><div class="stat-label">Erişim</div></div>
     </div>
@@ -240,305 +287,75 @@
 <main>
 
   <!-- HOME PAGE -->
-  <div class="page active" id="page-home">
+  <div class="page" id="page-home">
     <div class="section-title">Kategoriler</div>
     <div class="cat-grid">
-      <div class="cat-card" onclick="showPage('sorular', null, 'memur')" style="--acc:#2563eb;" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='transparent'">
+      <div class="cat-card" onclick="navigate('/sorular/memur')" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='transparent'">
         <div class="cat-card-deco" style="background:rgba(37,99,235,0.08)"></div>
         <div class="cat-icon">🏛️</div>
         <div class="cat-name">Memur Hakları</div>
-        <div class="cat-count">5 örnek soru</div>
+        <div class="cat-count" id="cat-count-memur">5 soru</div>
         <div class="cat-link" style="color:#2563eb">Soruları Gör →</div>
       </div>
-      <div class="cat-card" onclick="showPage('sorular', null, 'guvenlik')" onmouseenter="this.style.borderColor='#dc2626'" onmouseleave="this.style.borderColor='transparent'">
+      <div class="cat-card" onclick="navigate('/sorular/guvenlik')" onmouseenter="this.style.borderColor='#dc2626'" onmouseleave="this.style.borderColor='transparent'">
         <div class="cat-card-deco" style="background:rgba(220,38,38,0.08)"></div>
         <div class="cat-icon">🛡️</div>
         <div class="cat-name">Özel Güvenlik</div>
-        <div class="cat-count">5 örnek soru</div>
+        <div class="cat-count" id="cat-count-guvenlik">5 soru</div>
         <div class="cat-link" style="color:#dc2626">Soruları Gör →</div>
       </div>
-      <div class="cat-card" onclick="showPage('sorular', null, 'is')" onmouseenter="this.style.borderColor='#d97706'" onmouseleave="this.style.borderColor='transparent'">
+      <div class="cat-card" onclick="navigate('/sorular/is-guvenligi')" onmouseenter="this.style.borderColor='#d97706'" onmouseleave="this.style.borderColor='transparent'">
         <div class="cat-card-deco" style="background:rgba(217,119,6,0.08)"></div>
         <div class="cat-icon">⚠️</div>
         <div class="cat-name">İş Güvenliği</div>
-        <div class="cat-count">5 örnek soru</div>
+        <div class="cat-count" id="cat-count-is">5 soru</div>
         <div class="cat-link" style="color:#d97706">Soruları Gör →</div>
+      </div>
+      <div class="cat-card" onclick="navigate('/sorular/isci-haklari')" onmouseenter="this.style.borderColor='#16a34a'" onmouseleave="this.style.borderColor='transparent'">
+        <div class="cat-card-deco" style="background:rgba(22,163,74,0.08)"></div>
+        <div class="cat-icon">👷</div>
+        <div class="cat-name">İşçi Hakları</div>
+        <div class="cat-count" id="cat-count-isci">5 soru</div>
+        <div class="cat-link" style="color:#16a34a">Soruları Gör →</div>
       </div>
     </div>
 
     <div class="section-title">Son Eklenen Sorular</div>
-    <div class="q-list">
-      <div class="q-item"><span class="q-text">❓ 1 gün rapor alınca maaş kesilir mi?</span><span class="q-badge badge-memur">Memur</span></div>
-      <div class="q-item"><span class="q-text">❓ Özel güvenlik raporluyken çalıştırılabilir mi?</span><span class="q-badge badge-guvenlik">Özel Güvenlik</span></div>
-      <div class="q-item"><span class="q-text">❓ İş kazasında işverenin sorumluluğu nedir?</span><span class="q-badge badge-is">İş Güvenliği</span></div>
-      <div class="q-item"><span class="q-text">❓ Memur yıllık izni bölünebilir mi?</span><span class="q-badge badge-memur">Memur</span></div>
-      <div class="q-item"><span class="q-text">❓ Güvenlik görevlisi fazla mesai ücreti alır mı?</span><span class="q-badge badge-guvenlik">Özel Güvenlik</span></div>
-      <div class="q-item"><span class="q-text">❓ İşyerinde yangın tatbikatı zorunlu mu?</span><span class="q-badge badge-is">İş Güvenliği</span></div>
-    </div>
+    <div class="q-list" id="son-sorular"></div>
   </div>
 
-  <!-- SORULAR PAGE -->
+  <!-- SORULAR LİSTESİ PAGE -->
   <div class="page" id="page-sorular">
     <div class="filter-bar">
-      <button class="filter-btn" id="filter-all" onclick="filterCat('all')" style="background:#1e3a5f;color:#fff;">Tümü</button>
-      <button class="filter-btn" id="filter-memur" onclick="filterCat('memur')" style="background:#e2e8f0;color:#64748b;">🏛️ Memur</button>
-      <button class="filter-btn" id="filter-guvenlik" onclick="filterCat('guvenlik')" style="background:#e2e8f0;color:#64748b;">🛡️ Özel Güvenlik</button>
-      <button class="filter-btn" id="filter-is" onclick="filterCat('is')" style="background:#e2e8f0;color:#64748b;">⚠️ İş Güvenliği</button>
+      <button class="filter-btn" id="filter-all" onclick="navigate('/sorular')" style="background:#1e3a5f;color:#fff;">Tümü</button>
+      <button class="filter-btn" id="filter-memur" onclick="navigate('/sorular/memur')" style="background:#e2e8f0;color:#64748b;">🏛️ Memur</button>
+      <button class="filter-btn" id="filter-guvenlik" onclick="navigate('/sorular/guvenlik')" style="background:#e2e8f0;color:#64748b;">🛡️ Özel Güvenlik</button>
+      <button class="filter-btn" id="filter-is" onclick="navigate('/sorular/is-guvenligi')" style="background:#e2e8f0;color:#64748b;">⚠️ İş Güvenliği</button>
+      <button class="filter-btn" id="filter-isci" onclick="navigate('/sorular/isci-haklari')" style="background:#e2e8f0;color:#64748b;">👷 İşçi Hakları</button>
     </div>
+    <div id="sorular-listesi"></div>
+  </div>
 
-    <!-- Memur -->
-    <div class="cat-section" id="section-memur">
-      <div class="cat-section-title"><span style="font-size:20px">🏛️</span><h3>Memur Hakları</h3></div>
-      <div class="accordion" id="acc-m1">
-        <div class="accordion-header" onclick="toggleAcc('acc-m1','#2563eb')">
-          <span class="accordion-q">❓ 1 gün rapor alınca maaş kesilir mi?</span>
-          <span class="accordion-toggle" id="toggle-acc-m1">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-m1">
-          <div class="accordion-body-inner" style="border-left-color:#2563eb;background:#f0f7ff;">
-            Devlet memurları için <strong>1 günlük hastalık raporu</strong> maaş kesintisine yol açmaz. 657 sayılı Devlet Memurları Kanunu'na göre memurlar yılda toplam <strong>10 güne kadar</strong> hastalık iznini maaş kaybı yaşamadan kullanabilir. 10 günü aşan durumlarda ise doktor raporu zorunludur ve kesinti uygulanabilir. Özel sektörde ise iş sözleşmesine ve toplu iş sözleşmesine göre değişkenlik gösterir.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#2563eb">3 gün rapor alınca ne olur?</span>
-            <span class="similar-link" style="color:#2563eb">Özel sektörde rapor maaşı etkiler mi?</span>
-          </div>
-        </div>
+  <!-- SORU DETAY PAGE -->
+  <div class="page" id="page-detay">
+    <div class="soru-detay-header">
+      <div class="soru-detay-breadcrumb">
+        <a onclick="navigate('/')">Ana Sayfa</a>
+        <span>›</span>
+        <a id="detay-breadcrumb-kat-link">Sorular</a>
+        <span>›</span>
+        <span id="detay-breadcrumb-soru" style="color:#1e293b;font-weight:700;"></span>
       </div>
-      <div class="accordion" id="acc-m2">
-        <div class="accordion-header" onclick="toggleAcc('acc-m2','#2563eb')">
-          <span class="accordion-q">❓ Devlet memuru istifa edince tazminat alır mı?</span>
-          <span class="accordion-toggle" id="toggle-acc-m2">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-m2">
-          <div class="accordion-body-inner" style="border-left-color:#2563eb;background:#f0f7ff;">
-            Devlet memurları, <strong>kendi isteğiyle istifa ettiğinde kıdem tazminatı alamaz</strong>. Kıdem tazminatı yalnızca işçi statüsündeki çalışanlar için geçerlidir. Memurlar için emeklilik, ölüm veya maluliyet durumunda emeklilik ikramiyesi ödenir. İstifa eden memur, varsa biriken yıllık izin ücretini alabilir.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#2563eb">Memur emekli olunca ne alır?</span>
-            <span class="similar-link" style="color:#2563eb">Memur istifası geri alınır mı?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-m3">
-        <div class="accordion-header" onclick="toggleAcc('acc-m3','#2563eb')">
-          <span class="accordion-q">❓ Memur kaç gün mazeret izni kullanabilir?</span>
-          <span class="accordion-toggle" id="toggle-acc-m3">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-m3">
-          <div class="accordion-body-inner" style="border-left-color:#2563eb;background:#f0f7ff;">
-            657 sayılı Kanun'a göre devlet memurları çeşitli mazeret izinleri kullanabilir. <strong>Evlilik</strong> için 7 gün, <strong>doğum</strong> için 10 gün (babaya), <strong>ölüm</strong> (anne, baba, eş, çocuk) için 7 gün, <strong>hastalık</strong> için yılda 10 güne kadar raporsuz izin hakkı bulunmaktadır. Bu izinler maaş kesintisi yapılmaksızın kullanılır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#2563eb">Doğum izni kaç gün?</span>
-            <span class="similar-link" style="color:#2563eb">Yıllık izin kaç gün?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-m4">
-        <div class="accordion-header" onclick="toggleAcc('acc-m4','#2563eb')">
-          <span class="accordion-q">❓ Disiplin cezası sicile işlenir mi?</span>
-          <span class="accordion-toggle" id="toggle-acc-m4">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-m4">
-          <div class="accordion-body-inner" style="border-left-color:#2563eb;background:#f0f7ff;">
-            Evet, disiplin cezaları memur özlük dosyasına işlenir. Ancak <strong>uyarı ve kınama cezaları</strong> 5 yıl sonra sicilden silinebilir. <strong>Aylık kesimi ve kademe ilerlemesinin durdurulması</strong> cezaları ise daha uzun süre kayıtlarda kalır. Cezalara itiraz hakkı bulunmakta olup idare mahkemesine başvurulabilir.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#2563eb">Disiplin cezasına itiraz edilir mi?</span>
-            <span class="similar-link" style="color:#2563eb">Kınama cezası terfiyi etkiler mi?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-m5">
-        <div class="accordion-header" onclick="toggleAcc('acc-m5','#2563eb')">
-          <span class="accordion-q">❓ Memur grev yapabilir mi?</span>
-          <span class="accordion-toggle" id="toggle-acc-m5">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-m5">
-          <div class="accordion-body-inner" style="border-left-color:#2563eb;background:#f0f7ff;">
-            Türk hukukunda devlet memurlarının <strong>grev yapması yasaktır</strong>. Anayasa'nın 54. maddesi ve 657 sayılı Kanun bu konuda açıktır. Grev yapan memur disiplin cezasıyla karşılaşabilir. Bununla birlikte memurların sendikaya üye olma ve toplu sözleşme imzalatma hakları mevcuttur.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#2563eb">Memur sendikaya üye olabilir mi?</span>
-            <span class="similar-link" style="color:#2563eb">Toplu sözleşme nedir?</span>
-          </div>
-        </div>
-      </div>
+      <div class="soru-detay-kat-badge" id="detay-kat-badge"></div>
+      <h1 class="soru-detay-soru" id="detay-soru"></h1>
     </div>
-
-    <!-- Özel Güvenlik -->
-    <div class="cat-section" id="section-guvenlik">
-      <div class="cat-section-title"><span style="font-size:20px">🛡️</span><h3>Özel Güvenlik</h3></div>
-      <div class="accordion" id="acc-g1">
-        <div class="accordion-header" onclick="toggleAcc('acc-g1','#dc2626')">
-          <span class="accordion-q">❓ Özel güvenlik gece vardiyası kaç saat?</span>
-          <span class="accordion-toggle" id="toggle-acc-g1">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-g1">
-          <div class="accordion-body-inner" style="border-left-color:#dc2626;background:#fff5f5;">
-            İş Kanunu'na göre gece çalışması <strong>en fazla 7,5 saat</strong> olabilir. Güvenlik sektöründe 12 saatlik vardiya sistemi yaygın olsa da bu durum ancak <strong>toplu iş sözleşmesi veya bireysel sözleşme</strong> ile düzenlenebilir. 7,5 saati aşan her saat fazla mesai ücreti gerektirir. İşveren buna uymak zorundadır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#dc2626">Fazla mesai ücreti nasıl hesaplanır?</span>
-            <span class="similar-link" style="color:#dc2626">Gündüz vardiyası kaç saat olabilir?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-g2">
-        <div class="accordion-header" onclick="toggleAcc('acc-g2','#dc2626')">
-          <span class="accordion-q">❓ Güvenlik izni iptal edilirse ne olur?</span>
-          <span class="accordion-toggle" id="toggle-acc-g2">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-g2">
-          <div class="accordion-body-inner" style="border-left-color:#dc2626;background:#fff5f5;">
-            Özel güvenlik kimlik kartı iptal edildiğinde kişi <strong>güvenlik görevlisi olarak çalışamaz</strong>. İşveren bu durumda iş sözleşmesini haklı nedenle feshedebilir. Ancak iptal kararına karşı <strong>idari itiraz ve idare mahkemesine başvurma</strong> hakkı bulunmaktadır. İptal kararının hukuka aykırı olduğu kanıtlanırsa kart iade edilir.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#dc2626">Güvenlik kartı yenileme nasıl yapılır?</span>
-            <span class="similar-link" style="color:#dc2626">Güvenlik belgesi ne zaman sona erer?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-g3">
-        <div class="accordion-header" onclick="toggleAcc('acc-g3','#dc2626')">
-          <span class="accordion-q">❓ Özel güvenlik kıdem tazminatı alır mı?</span>
-          <span class="accordion-toggle" id="toggle-acc-g3">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-g3">
-          <div class="accordion-body-inner" style="border-left-color:#dc2626;background:#fff5f5;">
-            Evet, özel güvenlik çalışanları <strong>işçi statüsünde</strong> olduğundan 4857 sayılı İş Kanunu kapsamında kıdem tazminatı hakkına sahiptir. En az 1 yıl çalışmış ve <strong>haklı nedensiz işten çıkarılmışsa veya emeklilik/askerlik gibi nedenlerle ayrılmışsa</strong> kıdem tazminatı alır. Her yıl için 30 günlük brüt ücret tutarında ödeme yapılır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#dc2626">İstifa edince kıdem alınır mı?</span>
-            <span class="similar-link" style="color:#dc2626">Kıdem tazminatı nasıl hesaplanır?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-g4">
-        <div class="accordion-header" onclick="toggleAcc('acc-g4','#dc2626')">
-          <span class="accordion-q">❓ Silah taşıma ruhsatı nasıl yenilenir?</span>
-          <span class="accordion-toggle" id="toggle-acc-g4">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-g4">
-          <div class="accordion-body-inner" style="border-left-color:#dc2626;background:#fff5f5;">
-            Özel güvenlik görevlileri için silah taşıma yetkisi <strong>güvenlik kimlik kartına bağlıdır</strong>. Kart yenilemesi için görev belgesi, güncel sağlık raporu ve silahlı eğitim belgesi gerekmektedir. Başvuru <strong>İl Emniyet Müdürlüğü</strong>'ne yapılır. Ruhsat süresi dolmadan 3 ay önce yenileme başvurusu yapılmalıdır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#dc2626">Güvenlik eğitimi nerede alınır?</span>
-            <span class="similar-link" style="color:#dc2626">Silahlı güvenlik belgesi kaç yıl geçerli?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-g5">
-        <div class="accordion-header" onclick="toggleAcc('acc-g5','#dc2626')">
-          <span class="accordion-q">❓ Özel güvenlik fazla mesai hakkı var mı?</span>
-          <span class="accordion-toggle" id="toggle-acc-g5">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-g5">
-          <div class="accordion-body-inner" style="border-left-color:#dc2626;background:#fff5f5;">
-            Evet. Haftalık <strong>45 saati aşan</strong> her çalışma süresi fazla mesai sayılır ve normal ücretin <strong>%50 fazlası</strong> ile ödenmek zorundadır. İşveren yılda en fazla 270 saat fazla mesai yaptırabilir. Bunu aşan durumda çalışan çalışmayı reddedebilir ya da iş mahkemesine başvurabilir.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#dc2626">Fazla mesai reddi işten çıkarmaya yol açar mı?</span>
-            <span class="similar-link" style="color:#dc2626">Tatil çalışması ücreti nedir?</span>
-          </div>
-        </div>
-      </div>
+    <div class="soru-detay-cevap-wrap">
+      <div class="soru-detay-cevap-title">✅ Cevap</div>
+      <div class="soru-detay-cevap" id="detay-cevap"></div>
     </div>
-
-    <!-- İş Güvenliği -->
-    <div class="cat-section" id="section-is">
-      <div class="cat-section-title"><span style="font-size:20px">⚠️</span><h3>İş Güvenliği</h3></div>
-      <div class="accordion" id="acc-i1">
-        <div class="accordion-header" onclick="toggleAcc('acc-i1','#d97706')">
-          <span class="accordion-q">❓ İş kazası geçirince ne yapılmalı?</span>
-          <span class="accordion-toggle" id="toggle-acc-i1">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-i1">
-          <div class="accordion-body-inner" style="border-left-color:#d97706;background:#fffbeb;">
-            İş kazası geçirildiğinde ilk yapılması gereken <strong>sağlık yardımı almaktır</strong>. Ardından işveren, kazayı <strong>3 iş günü içinde SGK'ya bildirmek</strong> zorundadır. Çalışan da bağlı olduğu SGK müdürlüğüne başvurabilir. İş kazası geçici iş göremezlik ödeneği, sürekli iş göremezlik ve ölüm halinde gelir bağlanması hakkı doğurur.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#d97706">İş kazası tazminatı nasıl alınır?</span>
-            <span class="similar-link" style="color:#d97706">SGK bildirim süresi nedir?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-i2">
-        <div class="accordion-header" onclick="toggleAcc('acc-i2','#d97706')">
-          <span class="accordion-q">❓ İşveren iş güvenliği eğitimi vermek zorunda mı?</span>
-          <span class="accordion-toggle" id="toggle-acc-i2">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-i2">
-          <div class="accordion-body-inner" style="border-left-color:#d97706;background:#fffbeb;">
-            Evet. 6331 sayılı İş Sağlığı ve Güvenliği Kanunu gereğince <strong>tüm işverenler</strong> çalışanlarına işe başlamadan önce iş güvenliği eğitimi vermek zorundadır. Eğitim süresi işyerinin tehlike sınıfına göre değişir: az tehlikeli işyerlerinde yılda <strong>8 saat</strong>, tehlikeli işyerlerinde 12 saat, çok tehlikeli işyerlerinde 16 saattir.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#d97706">Eğitim vermezse ceza nedir?</span>
-            <span class="similar-link" style="color:#d97706">İSG uzmanı zorunlu mu?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-i3">
-        <div class="accordion-header" onclick="toggleAcc('acc-i3','#d97706')">
-          <span class="accordion-q">❓ Meslek hastalığı tazminatı nasıl alınır?</span>
-          <span class="accordion-toggle" id="toggle-acc-i3">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-i3">
-          <div class="accordion-body-inner" style="border-left-color:#d97706;background:#fffbeb;">
-            Meslek hastalığı tanısı almak için <strong>SGK'nın yetkilendirdiği hastanelere</strong> başvurulması gerekir. Hastalık tespitinden sonra SGK, iş göremezlik ödeneği ve gerekirse sürekli gelir bağlar. Ayrıca işverenin kusuru varsa <strong>iş mahkemesinde tazminat davası</strong> açılabilir. Başvuru süresi hastalığın tespitinden itibaren 10 yıldır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#d97706">Meslek hastalığı hangi durumları kapsar?</span>
-            <span class="similar-link" style="color:#d97706">SGK dava açabilir mi?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-i4">
-        <div class="accordion-header" onclick="toggleAcc('acc-i4','#d97706')">
-          <span class="accordion-q">❓ İş güvenliği ihlali cezası nedir?</span>
-          <span class="accordion-toggle" id="toggle-acc-i4">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-i4">
-          <div class="accordion-body-inner" style="border-left-color:#d97706;background:#fffbeb;">
-            6331 sayılı Kanun kapsamında iş güvenliği kurallarına uymayan işverenler <strong>Çalışma Bakanlığı müfettişleri</strong> tarafından denetlenir. İhlal türüne göre <strong>idari para cezaları</strong> uygulanır; örneğin risk değerlendirmesi yapılmaması 50.000 TL'nin üzerinde cezaya yol açabilir. Tekrar ihlalde ceza miktarı artırılır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#d97706">İşyeri denetimi nasıl yapılır?</span>
-            <span class="similar-link" style="color:#d97706">Çalışan ihlali bildirebilir mi?</span>
-          </div>
-        </div>
-      </div>
-      <div class="accordion" id="acc-i5">
-        <div class="accordion-header" onclick="toggleAcc('acc-i5','#d97706')">
-          <span class="accordion-q">❓ Risk değerlendirmesi kim yapar?</span>
-          <span class="accordion-toggle" id="toggle-acc-i5">+</span>
-        </div>
-        <div class="accordion-body" id="body-acc-i5">
-          <div class="accordion-body-inner" style="border-left-color:#d97706;background:#fffbeb;">
-            Risk değerlendirmesi yasal olarak <strong>işverenin sorumluluğundadır</strong>. Ancak uygulamada bu görev İSG (İş Sağlığı ve Güvenliği) uzmanı tarafından yürütülür. 50'den az çalışanı olan az tehlikeli işyerlerinde işveren bu görevi kendisi de üstlenebilir. Risk değerlendirmesi <strong>belirli aralıklarla yenilenmek</strong> zorundadır.
-          </div>
-          <div class="similar-wrap">
-            <span class="similar-label">Benzer sorular:</span>
-            <span class="similar-link" style="color:#d97706">Risk değerlendirmesi ne kadar sürede yapılmalı?</span>
-            <span class="similar-link" style="color:#d97706">İSG uzmanı nasıl atanır?</span>
-          </div>
-        </div>
-      </div>
+    <div class="soru-detay-benzer" id="detay-benzer-wrap">
+      <div class="soru-detay-benzer-title">🔗 Benzer Sorular</div>
+      <div id="detay-benzer-listesi"></div>
     </div>
   </div>
 
@@ -546,7 +363,7 @@
   <div class="page" id="page-hakkinda">
     <div class="about-card">
       <h2>HakBul Hakkında</h2>
-      <p>HakBul, Türkiye'deki çalışanların merak ettiği soruları net ve anlaşılır biçimde yanıtlamak için kurulmuş bir rehber sitesidir. Memur hakları, özel güvenlik mevzuatı ve iş güvenliği konularında binlerce soru ve cevap bulabilirsiniz.</p>
+      <p>HakBul, Türkiye'deki çalışanların merak ettiği soruları net ve anlaşılır biçimde yanıtlamak için kurulmuş bir rehber sitesidir. Memur hakları, özel güvenlik mevzuatı ve iş güvenliği konularında sorular ve cevaplar bulabilirsiniz.</p>
       <p>Tüm içerikler güncel mevzuat ve uzman görüşlerine dayanmaktadır. Site tamamen ücretsizdir ve reklam gelirleriyle sürdürülmektedir.</p>
       <div class="about-icons">
         <div class="about-icon-card"><div class="icon">🏛️</div><div class="label">Memur Hakları</div></div>
@@ -561,82 +378,447 @@
 <footer>© 2025 HakBul — Türk Çalışan Hakları Rehberi</footer>
 
 <script>
-  const allQuestions = [
-    { q: "1 gün rapor alınca maaş kesilir mi?", cat: "Memur" },
-    { q: "Özel güvenlik raporluyken çalıştırılabilir mi?", cat: "Özel Güvenlik" },
-    { q: "İş kazasında işverenin sorumluluğu nedir?", cat: "İş Güvenliği" },
-    { q: "Memur yıllık izni bölünebilir mi?", cat: "Memur" },
-    { q: "Güvenlik görevlisi fazla mesai ücreti alır mı?", cat: "Özel Güvenlik" },
-    { q: "İşyerinde yangın tatbikatı zorunlu mu?", cat: "İş Güvenliği" },
-    { q: "Devlet memuru istifa edince tazminat alır mı?", cat: "Memur" },
-    { q: "Disiplin cezası sicile işlenir mi?", cat: "Memur" },
-    { q: "Güvenlik izni iptal edilirse ne olur?", cat: "Özel Güvenlik" },
-    { q: "Risk değerlendirmesi kim yapar?", cat: "İş Güvenliği" },
-  ];
+// ============================================================
+// VERİ TABANI — Yeni soru eklemek için buraya ekle
+// slug: URL'de görünecek kısa isim (Türkçe harf OLMAMALI)
+// ============================================================
+const SORULAR = [
+  // ── MEMUR HAKLARI ──
+  {
+    id: "m1",
+    slug: "1-gun-rapor-alininca-maas-kesilir-mi",
+    kat: "memur",
+    soru: "1 gün rapor alınca maaş kesilir mi?",
+    cevap: "Devlet memurları için <strong>1 günlük hastalık raporu</strong> maaş kesintisine yol açmaz. 657 sayılı Devlet Memurları Kanunu'na göre memurlar yılda toplam <strong>10 güne kadar</strong> hastalık iznini maaş kaybı yaşamadan kullanabilir. 10 günü aşan durumlarda ise doktor raporu zorunludur ve kesinti uygulanabilir. Özel sektörde ise iş sözleşmesine ve toplu iş sözleşmesine göre değişkenlik gösterir.",
+    benzer: ["m2", "m3"]
+  },
+  {
+    id: "m2",
+    slug: "devlet-memuru-istifa-edince-tazminat-alir-mi",
+    kat: "memur",
+    soru: "Devlet memuru istifa edince tazminat alır mı?",
+    cevap: "Devlet memurları, <strong>kendi isteğiyle istifa ettiğinde kıdem tazminatı alamaz</strong>. Kıdem tazminatı yalnızca işçi statüsündeki çalışanlar için geçerlidir. Memurlar için emeklilik, ölüm veya maluliyet durumunda emeklilik ikramiyesi ödenir. İstifa eden memur, varsa biriken yıllık izin ücretini alabilir.",
+    benzer: ["m3", "m5"]
+  },
+  {
+    id: "m3",
+    slug: "memur-kac-gun-mazeret-izni-kullanabilir",
+    kat: "memur",
+    soru: "Memur kaç gün mazeret izni kullanabilir?",
+    cevap: "657 sayılı Kanun'a göre devlet memurları çeşitli mazeret izinleri kullanabilir. <strong>Evlilik</strong> için 7 gün, <strong>doğum</strong> için 10 gün (babaya), <strong>ölüm</strong> (anne, baba, eş, çocuk) için 7 gün, <strong>hastalık</strong> için yılda 10 güne kadar raporsuz izin hakkı bulunmaktadır. Bu izinler maaş kesintisi yapılmaksızın kullanılır.",
+    benzer: ["m1", "m4"]
+  },
+  {
+    id: "m4",
+    slug: "disiplin-cezasi-sicile-islenir-mi",
+    kat: "memur",
+    soru: "Disiplin cezası sicile işlenir mi?",
+    cevap: "Evet, disiplin cezaları memur özlük dosyasına işlenir. Ancak <strong>uyarı ve kınama cezaları</strong> 5 yıl sonra sicilden silinebilir. <strong>Aylık kesimi ve kademe ilerlemesinin durdurulması</strong> cezaları ise daha uzun süre kayıtlarda kalır. Cezalara itiraz hakkı bulunmakta olup idare mahkemesine başvurulabilir.",
+    benzer: ["m5", "m2"]
+  },
+  {
+    id: "m5",
+    slug: "memur-grev-yapabilir-mi",
+    kat: "memur",
+    soru: "Memur grev yapabilir mi?",
+    cevap: "Türk hukukunda devlet memurlarının <strong>grev yapması yasaktır</strong>. Anayasa'nın 54. maddesi ve 657 sayılı Kanun bu konuda açıktır. Grev yapan memur disiplin cezasıyla karşılaşabilir. Bununla birlikte memurların sendikaya üye olma ve toplu sözleşme imzalatma hakları mevcuttur.",
+    benzer: ["m4", "m3"]
+  },
 
-  function showPage(id, btn, catFilter) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    if (btn) btn.classList.add('active');
-    else {
-      document.querySelectorAll('.nav-btn').forEach(b => {
-        if ((id === 'home' && b.textContent.includes('Ana')) ||
-            (id === 'sorular' && b.textContent.includes('Sorular')) ||
-            (id === 'hakkinda' && b.textContent.includes('Hakkında'))) {
-          b.classList.add('active');
-        }
-      });
-    }
-    if (id === 'sorular' && catFilter) filterCat(catFilter);
-    window.scrollTo(0,0);
+  // ── ÖZEL GÜVENLİK ──
+  {
+    id: "g1",
+    slug: "ozel-guvenlik-gece-vardiyasi-kac-saat",
+    kat: "guvenlik",
+    soru: "Özel güvenlik gece vardiyası kaç saat?",
+    cevap: "İş Kanunu'na göre gece çalışması <strong>en fazla 7,5 saat</strong> olabilir. Güvenlik sektöründe 12 saatlik vardiya sistemi yaygın olsa da bu durum ancak <strong>toplu iş sözleşmesi veya bireysel sözleşme</strong> ile düzenlenebilir. 7,5 saati aşan her saat fazla mesai ücreti gerektirir. İşveren buna uymak zorundadır.",
+    benzer: ["g5", "g3"]
+  },
+  {
+    id: "g2",
+    slug: "guvenlik-izni-iptal-edilirse-ne-olur",
+    kat: "guvenlik",
+    soru: "Güvenlik izni iptal edilirse ne olur?",
+    cevap: "Özel güvenlik kimlik kartı iptal edildiğinde kişi <strong>güvenlik görevlisi olarak çalışamaz</strong>. İşveren bu durumda iş sözleşmesini haklı nedenle feshedebilir. Ancak iptal kararına karşı <strong>idari itiraz ve idare mahkemesine başvurma</strong> hakkı bulunmaktadır. İptal kararının hukuka aykırı olduğu kanıtlanırsa kart iade edilir.",
+    benzer: ["g4", "g3"]
+  },
+  {
+    id: "g3",
+    slug: "ozel-guvenlik-kidem-tazminati-alir-mi",
+    kat: "guvenlik",
+    soru: "Özel güvenlik kıdem tazminatı alır mı?",
+    cevap: "Evet, özel güvenlik çalışanları <strong>işçi statüsünde</strong> olduğundan 4857 sayılı İş Kanunu kapsamında kıdem tazminatı hakkına sahiptir. En az 1 yıl çalışmış ve <strong>haklı nedensiz işten çıkarılmışsa veya emeklilik/askerlik gibi nedenlerle ayrılmışsa</strong> kıdem tazminatı alır. Her yıl için 30 günlük brüt ücret tutarında ödeme yapılır.",
+    benzer: ["g5", "g1"]
+  },
+  {
+    id: "g4",
+    slug: "silah-tasima-ruhsati-nasil-yenilenir",
+    kat: "guvenlik",
+    soru: "Silah taşıma ruhsatı nasıl yenilenir?",
+    cevap: "Özel güvenlik görevlileri için silah taşıma yetkisi <strong>güvenlik kimlik kartına bağlıdır</strong>. Kart yenilemesi için görev belgesi, güncel sağlık raporu ve silahlı eğitim belgesi gerekmektedir. Başvuru <strong>İl Emniyet Müdürlüğü</strong>'ne yapılır. Ruhsat süresi dolmadan 3 ay önce yenileme başvurusu yapılmalıdır.",
+    benzer: ["g2", "g5"]
+  },
+  {
+    id: "g5",
+    slug: "ozel-guvenlik-fazla-mesai-hakki-var-mi",
+    kat: "guvenlik",
+    soru: "Özel güvenlik fazla mesai hakkı var mı?",
+    cevap: "Evet. Haftalık <strong>45 saati aşan</strong> her çalışma süresi fazla mesai sayılır ve normal ücretin <strong>%50 fazlası</strong> ile ödenmek zorundadır. İşveren yılda en fazla 270 saat fazla mesai yaptırabilir. Bunu aşan durumda çalışan çalışmayı reddedebilir ya da iş mahkemesine başvurabilir.",
+    benzer: ["g1", "g3"]
+  },
+
+  // ── İŞ GÜVENLİĞİ ──
+  {
+    id: "i1",
+    slug: "is-kazasi-gecirince-ne-yapilmali",
+    kat: "is",
+    soru: "İş kazası geçirince ne yapılmalı?",
+    cevap: "İş kazası geçirildiğinde ilk yapılması gereken <strong>sağlık yardımı almaktır</strong>. Ardından işveren, kazayı <strong>3 iş günü içinde SGK'ya bildirmek</strong> zorundadır. Çalışan da bağlı olduğu SGK müdürlüğüne başvurabilir. İş kazası geçici iş göremezlik ödeneği, sürekli iş göremezlik ve ölüm halinde gelir bağlanması hakkı doğurur.",
+    benzer: ["i2", "i3"]
+  },
+  {
+    id: "i2",
+    slug: "isveren-is-guvenligi-egitimi-vermek-zorunda-mi",
+    kat: "is",
+    soru: "İşveren iş güvenliği eğitimi vermek zorunda mı?",
+    cevap: "Evet. 6331 sayılı İş Sağlığı ve Güvenliği Kanunu gereğince <strong>tüm işverenler</strong> çalışanlarına işe başlamadan önce iş güvenliği eğitimi vermek zorundadır. Eğitim süresi işyerinin tehlike sınıfına göre değişir: az tehlikeli işyerlerinde yılda <strong>8 saat</strong>, tehlikeli işyerlerinde 12 saat, çok tehlikeli işyerlerinde 16 saattir.",
+    benzer: ["i4", "i5"]
+  },
+  {
+    id: "i3",
+    slug: "meslek-hastaligi-tazminati-nasil-alinir",
+    kat: "is",
+    soru: "Meslek hastalığı tazminatı nasıl alınır?",
+    cevap: "Meslek hastalığı tanısı almak için <strong>SGK'nın yetkilendirdiği hastanelere</strong> başvurulması gerekir. Hastalık tespitinden sonra SGK, iş göremezlik ödeneği ve gerekirse sürekli gelir bağlar. Ayrıca işverenin kusuru varsa <strong>iş mahkemesinde tazminat davası</strong> açılabilir. Başvuru süresi hastalığın tespitinden itibaren 10 yıldır.",
+    benzer: ["i1", "i4"]
+  },
+  {
+    id: "i4",
+    slug: "is-guvenligi-ihlali-cezasi-nedir",
+    kat: "is",
+    soru: "İş güvenliği ihlali cezası nedir?",
+    cevap: "6331 sayılı Kanun kapsamında iş güvenliği kurallarına uymayan işverenler <strong>Çalışma Bakanlığı müfettişleri</strong> tarafından denetlenir. İhlal türüne göre <strong>idari para cezaları</strong> uygulanır; örneğin risk değerlendirmesi yapılmaması 50.000 TL'nin üzerinde cezaya yol açabilir. Tekrar ihlalde ceza miktarı artırılır.",
+    benzer: ["i5", "i2"]
+  },
+  {
+    id: "i5",
+    slug: "risk-degerlendirmesi-kim-yapar",
+    kat: "is",
+    soru: "Risk değerlendirmesi kim yapar?",
+    cevap: "Risk değerlendirmesi yasal olarak <strong>işverenin sorumluluğundadır</strong>. Ancak uygulamada bu görev İSG (İş Sağlığı ve Güvenliği) uzmanı tarafından yürütülür. 50'den az çalışanı olan az tehlikeli işyerlerinde işveren bu görevi kendisi de üstlenebilir. Risk değerlendirmesi <strong>belirli aralıklarla yenilenmek</strong> zorundadır.",
+    benzer: ["i4", "i2"]
+  },
+
+  // ── İŞÇİ HAKLARI (4857 Sayılı İş Kanunu) ──
+  {
+    id: "ik1",
+    slug: "kidem-tazminati-ne-zaman-alinir",
+    kat: "isci",
+    soru: "Kıdem tazminatı ne zaman alınır?",
+    cevap: "Kıdem tazminatı alabilmek için işçinin <strong>en az 1 yıl</strong> aynı işyerinde çalışmış olması gerekir. İşveren tarafından haklı neden olmaksızın işten çıkarılma, emeklilik, askerlik veya evlilik nedeniyle ayrılma (kadın işçiler) durumlarında kıdem tazminatı hakkı doğar. Her tam çalışma yılı için <strong>30 günlük brüt ücret</strong> tutarında ödeme yapılır. İstifa halinde ise kıdem tazminatı alınamaz.",
+    benzer: ["ik2", "ik3"]
+  },
+  {
+    id: "ik2",
+    slug: "ihbar-suresi-ne-kadar",
+    kat: "isci",
+    soru: "İhbar süresi ne kadar?",
+    cevap: "4857 sayılı İş Kanunu'na göre ihbar süreleri çalışma süresine göre değişir: <strong>6 aydan az</strong> çalışmışsa 2 hafta, <strong>6 ay ile 1,5 yıl</strong> arasında 4 hafta, <strong>1,5 yıl ile 3 yıl</strong> arasında 6 hafta, <strong>3 yıldan fazla</strong> çalışmışsa 8 haftadır. İşveren veya işçi bu süreye uymadan ayrılırsa, karşı tarafa ihbar tazminatı ödemek zorundadır.",
+    benzer: ["ik1", "ik4"]
+  },
+  {
+    id: "ik3",
+    slug: "isci-izinsiz-isten-cikirilabilir-mi",
+    kat: "isci",
+    soru: "İşçi izinsiz işten çıkarılabilir mi?",
+    cevap: "İşveren, işçiyi <strong>haklı bir neden olmaksızın</strong> ihbarsız işten çıkaramaz. Haklı neden yoksa işçiye hem <strong>ihbar tazminatı</strong> hem de varsa <strong>kıdem tazminatı</strong> ödenmelidir. İşveren haklı nedenle fesih yapıyorsa (hırsızlık, işe gelmeme vb.) tazminatsız çıkarabilir. İşçi, haksız feshe karşı <strong>1 ay içinde iş mahkemesine</strong> başvurabilir.",
+    benzer: ["ik1", "ik2"]
+  },
+  {
+    id: "ik4",
+    slug: "yillik-izin-hakkı-kac-gun",
+    kat: "isci",
+    soru: "Yıllık izin hakkı kaç gün?",
+    cevap: "4857 sayılı Kanun'a göre yıllık ücretli izin süresi: <strong>1-5 yıl</strong> çalışanlara 14 gün, <strong>5-15 yıl</strong> çalışanlara 20 gün, <strong>15 yıl ve üzeri</strong> çalışanlara 26 gündür. 18 yaşından küçük ve 50 yaşından büyük işçilere ise en az <strong>20 gün</strong> izin verilmesi zorunludur. İşveren bu izni kullandırmak zorundadır.",
+    benzer: ["ik3", "ik5"]
+  },
+  {
+    id: "ik5",
+    slug: "fazla-mesai-ucreti-nasil-hesaplanir",
+    kat: "isci",
+    soru: "Fazla mesai ücreti nasıl hesaplanır?",
+    cevap: "Haftalık <strong>45 saati aşan</strong> çalışmalar fazla mesai sayılır. Fazla mesai ücreti, normal saatlik ücretin <strong>%50 fazlasıyla</strong> hesaplanır. Örneğin saatlik ücretiniz 100 TL ise fazla mesai saatiniz 150 TL olur. İşveren yılda en fazla <strong>270 saat</strong> fazla mesai yaptırabilir. Bunun üzerindeki talepler işçi tarafından reddedilebilir.",
+    benzer: ["ik2", "ik3"]
+  },
+
+  // ── YENİ SORULAR ──
+  {
+    id: "m6",
+    slug: "memur-yillik-izin-kac-gun",
+    kat: "memur",
+    soru: "Memur yıllık izin kaç gün?",
+    cevap: "657 sayılı Devlet Memurları Kanunu'na göre yıllık izin süresi hizmet yılına göre değişir. <strong>1-10 yıl</strong> hizmeti olan memurlara 20 gün, <strong>10 yıldan fazla</strong> hizmeti olanlara 30 gün yıllık izin hakkı tanınır. Yurt dışında görev yapan memurlara bu süreye <strong>10 gün eklenir</strong>. Yıllık izin, amirin uygun gördüğü dönemde kullandırılır ve bir sonraki yıla en fazla 10 gün devredilebilir.",
+    benzer: ["m3", "m1"]
+  },
+  {
+    id: "g6",
+    slug: "guvenlik-gorevlisi-rapor-alabilir-mi",
+    kat: "guvenlik",
+    soru: "Güvenlik görevlisi rapor alabilir mi?",
+    cevap: "Evet, özel güvenlik görevlileri <strong>işçi statüsünde</strong> olduğundan diğer çalışanlar gibi hastalık raporu alabilir. Rapor süresi boyunca SGK <strong>geçici iş göremezlik ödeneği</strong> öder. Ancak ilk 2 gün için SGK ödeme yapmaz; bu günlerin ücretini işverenin ödeyip ödemeyeceği iş sözleşmesine göre belirlenir. Uzun süreli raporlarda işveren sözleşmeyi tek taraflı feshedemez.",
+    benzer: ["g3", "g5"]
+  },
+  {
+    id: "i6",
+    slug: "isyerinde-kamera-kaydi-yasal-mi",
+    kat: "is",
+    soru: "İşyerinde kamera kaydı yasal mı?",
+    cevap: "İşverenin güvenlik amacıyla işyerine kamera kurması <strong>yasaldır</strong>; ancak bazı kurallara uyması zorunludur. Çalışanlar kamera varlığından <strong>önceden açıkça haberdar edilmelidir</strong>. Tuvaletler, soyunma odaları ve dinlenme alanlarına kamera kurulamaz. Görüntüler yalnızca güvenlik amacıyla kullanılabilir; aksi durum <strong>KVKK ihlali</strong> sayılır ve idari para cezasına yol açar.",
+    benzer: ["i4", "i2"]
+  },
+  {
+    id: "ik6",
+    slug: "isveren-maas-odememezse-ne-yapilir",
+    kat: "isci",
+    soru: "İşveren maaş ödemezse ne yapılır?",
+    cevap: "İşveren maaşı <strong>20 gün geciktirirse</strong> işçi, iş sözleşmesini haklı nedenle feshedip kıdem tazminatı talep edebilir. Bunun yanında <strong>Çalışma ve Sosyal Güvenlik Bakanlığı'na</strong> şikâyet başvurusu yapılabilir. İş mahkemesinde ücret alacağı davası açmak da mümkündür. Ücret alacaklarında zamanaşımı süresi <strong>5 yıldır</strong>.",
+    benzer: ["ik1", "ik3"]
+  }
+];
+
+// ============================================================
+// KATEGORİ AYARLARI
+// ============================================================
+const KAT_AYAR = {
+  memur:    { isim: "Memur Hakları",   emoji: "🏛️", renk: "#2563eb", bg: "#f0f7ff", badgeBg: "#dbeafe", badgeRenk: "#1d4ed8" },
+  guvenlik: { isim: "Özel Güvenlik",   emoji: "🛡️", renk: "#dc2626", bg: "#fff5f5", badgeBg: "#fee2e2", badgeRenk: "#dc2626" },
+  is:       { isim: "İş Güvenliği",    emoji: "⚠️", renk: "#d97706", bg: "#fffbeb", badgeBg: "#fef3c7", badgeRenk: "#92400e" },
+  isci:     { isim: "İşçi Hakları",    emoji: "👷", renk: "#16a34a", bg: "#f0fdf4", badgeBg: "#dcfce7", badgeRenk: "#15803d" }
+};
+
+// ============================================================
+// SLUG → ID HARİTASI
+// ============================================================
+const slugMap = {};
+SORULAR.forEach(s => { slugMap[s.slug] = s.id; });
+
+function soruById(id) { return SORULAR.find(s => s.id === id); }
+function soruBySlug(slug) { return SORULAR.find(s => s.slug === slug); }
+
+// ============================================================
+// NAVIGATE & ROUTER — Hash tabanlı (#)
+// GitHub Pages ile uyumlu, kurulum gerektirmez
+// Örnek URL: hakbul.com.tr/#/soru/1-gun-rapor-alininca-maas-kesilir-mi
+// ============================================================
+function navigate(path) {
+  window.location.hash = path;
+}
+
+function route(hash) {
+  const path = hash.replace(/^#/, '') || '/';
+
+  // Tüm sayfaları kapat
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+  const parts = path.split('/').filter(Boolean);
+
+  if (path === '/' || parts.length === 0) {
+    renderHome();
+  } else if (parts[0] === 'sorular' && parts.length === 1) {
+    renderSorular('all');
+  } else if (parts[0] === 'sorular' && parts.length === 2) {
+    const katSlug = parts[1];
+    const katKey = katSlug === 'is-guvenligi' ? 'is' : katSlug === 'isci-haklari' ? 'isci' : katSlug;
+    renderSorular(katKey);
+  } else if (parts[0] === 'soru' && parts.length === 2) {
+    renderDetay(parts[1]);
+  } else if (parts[0] === 'hakkinda') {
+    renderHakkinda();
+  } else {
+    renderHome();
   }
 
-  function filterCat(cat) {
-    ['all','memur','guvenlik','is'].forEach(c => {
-      const btn = document.getElementById('filter-' + c);
-      const colors = { memur: '#2563eb', guvenlik: '#dc2626', is: '#d97706', all: '#1e3a5f' };
-      btn.style.background = '#e2e8f0'; btn.style.color = '#64748b';
-    });
-    const active = document.getElementById('filter-' + cat);
-    const accentMap = { memur: '#2563eb', guvenlik: '#dc2626', is: '#d97706', all: '#1e3a5f' };
-    active.style.background = accentMap[cat]; active.style.color = '#fff';
+  window.scrollTo(0, 0);
+}
 
-    ['memur','guvenlik','is'].forEach(c => {
-      const sec = document.getElementById('section-' + c);
-      sec.style.display = (cat === 'all' || cat === c) ? 'block' : 'none';
-    });
-  }
+// ============================================================
+// RENDER FONKSİYONLARI
+// ============================================================
+function renderHome() {
+  document.getElementById('page-home').classList.add('active');
+  document.getElementById('nav-home').classList.add('active');
+  document.getElementById('hero-section').style.display = '';
+  setMeta('HakBul — Çalışan Hakları Rehberi', 'Memur hakları, özel güvenlik ve iş güvenliği hakkında sorular ve yanıtlar.', 'https://hakbul.com.tr/#/');
+  clearFaqSchema();
 
-  function toggleAcc(id, color) {
-    const body = document.getElementById('body-' + id);
-    const toggle = document.getElementById('toggle-' + id);
-    const accordion = document.getElementById(id);
-    const isOpen = body.classList.contains('open');
-    body.classList.toggle('open');
-    toggle.classList.toggle('open');
-    accordion.style.borderColor = isOpen ? '#e2e8f0' : color;
-  }
-
-  function handleSearch(val) {
-    const results = document.getElementById('searchResults');
-    if (val.length < 2) { results.classList.remove('show'); return; }
-    const filtered = allQuestions.filter(q => q.q.toLowerCase().includes(val.toLowerCase()));
-    if (filtered.length === 0) { results.classList.remove('show'); return; }
-    results.innerHTML = filtered.map(item => `
-      <div class="search-result-item" onclick="showPage('sorular', null)">
-        <span class="search-result-q">${item.q}</span>
-        <span class="search-result-cat">${item.cat}</span>
-      </div>
-    `).join('');
-    results.classList.add('show');
-  }
-
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.search-wrap')) {
-      document.getElementById('searchResults').classList.remove('show');
-    }
+  // Kategori sayıları
+  Object.keys(KAT_AYAR).forEach(k => {
+    const el = document.getElementById('cat-count-' + k);
+    if (el) el.textContent = SORULAR.filter(s => s.kat === k).length + ' soru';
   });
+  document.getElementById('stat-sayi').textContent = SORULAR.length;
+
+  // Son sorular
+  const container = document.getElementById('son-sorular');
+  const sonSorular = [...SORULAR].slice(-6).reverse();
+  container.innerHTML = sonSorular.map(s => {
+    const k = KAT_AYAR[s.kat];
+    return `<a class="q-item" onclick="navigate('/soru/${s.slug}')" style="cursor:pointer">
+      <span class="q-text">❓ ${s.soru}</span>
+      <span class="q-badge" style="background:${k.badgeBg};color:${k.badgeRenk}">${k.emoji} ${k.isim}</span>
+    </a>`;
+  }).join('');
+}
+
+function renderSorular(katFilter) {
+  document.getElementById('page-sorular').classList.add('active');
+  document.getElementById('nav-sorular').classList.add('active');
+  document.getElementById('hero-section').style.display = '';
+
+  // Filtre butonları
+  const filterMap = { all: 'filter-all', memur: 'filter-memur', guvenlik: 'filter-guvenlik', is: 'filter-is', isci: 'filter-isci' };
+  const colorMap  = { all: '#1e3a5f', memur: '#2563eb', guvenlik: '#dc2626', is: '#d97706', isci: '#16a34a' };
+  Object.entries(filterMap).forEach(([key, btnId]) => {
+    const btn = document.getElementById(btnId);
+    if (key === katFilter) { btn.style.background = colorMap[key]; btn.style.color = '#fff'; }
+    else { btn.style.background = '#e2e8f0'; btn.style.color = '#64748b'; }
+  });
+
+  const katsGorunur = katFilter === 'all' ? Object.keys(KAT_AYAR) : [katFilter];
+  let html = '';
+  katsGorunur.forEach(kat => {
+    const k = KAT_AYAR[kat];
+    const katSorulari = SORULAR.filter(s => s.kat === kat);
+    html += `<div class="cat-section">
+      <div class="cat-section-title"><span style="font-size:20px">${k.emoji}</span><h3>${k.isim}</h3></div>`;
+    katSorulari.forEach(s => {
+      html += `<div class="soru-list-item" onclick="navigate('/soru/${s.slug}')" style="color:${k.renk}">
+        <span class="soru-list-q">❓ ${s.soru}</span>
+        <span class="soru-list-arrow">›</span>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById('sorular-listesi').innerHTML = html;
+
+  const katAd = katFilter === 'all' ? 'Tüm Sorular' : KAT_AYAR[katFilter].isim;
+  const katUrlMap = { all: '/sorular', memur: '/sorular/memur', guvenlik: '/sorular/guvenlik', is: '/sorular/is-guvenligi', isci: '/sorular/isci-haklari' };
+  setMeta(`${katAd} — HakBul`, `${katAd} hakkında merak edilen sorular ve yanıtlar.`, 'https://hakbul.com.tr/#' + katUrlMap[katFilter]);
+  clearFaqSchema();
+}
+
+function renderDetay(slug) {
+  const soru = soruBySlug(slug);
+  if (!soru) { navigate('/'); return; }
+
+  document.getElementById('page-detay').classList.add('active');
+  document.getElementById('nav-sorular').classList.add('active');
+  document.getElementById('hero-section').style.display = 'none'; // Detay sayfasında hero yok
+
+  const k = KAT_AYAR[soru.kat];
+  const katSlugUrl = soru.kat === 'is' ? 'is-guvenligi' : soru.kat;
+
+  // Breadcrumb
+  document.getElementById('detay-breadcrumb-kat-link').textContent = k.isim;
+  document.getElementById('detay-breadcrumb-kat-link').onclick = () => navigate('/sorular/' + katSlugUrl);
+  document.getElementById('detay-breadcrumb-soru').textContent = soru.soru.length > 40 ? soru.soru.substring(0,40)+'...' : soru.soru;
+
+  // Badge
+  document.getElementById('detay-kat-badge').innerHTML = `${k.emoji} ${k.isim}`;
+  document.getElementById('detay-kat-badge').style.cssText = `background:${k.badgeBg};color:${k.badgeRenk};display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;`;
+
+  // Soru & Cevap
+  document.getElementById('detay-soru').textContent = soru.soru;
+  const cevapEl = document.getElementById('detay-cevap');
+  cevapEl.innerHTML = soru.cevap;
+  cevapEl.style.borderLeftColor = k.renk;
+  cevapEl.style.background = k.bg;
+
+  // Benzer sorular
+  const benzerEl = document.getElementById('detay-benzer-listesi');
+  benzerEl.innerHTML = (soru.benzer || []).map(bid => {
+    const b = soruById(bid);
+    if (!b) return '';
+    const bk = KAT_AYAR[b.kat];
+    return `<div class="benzer-item" onclick="navigate('/soru/${b.slug}')">
+      <span>${bk.emoji} ${b.soru}</span>
+      <span style="color:${bk.renk};font-size:18px">›</span>
+    </div>`;
+  }).join('');
+
+  // SEO
+  const cevapTemiz = soru.cevap.replace(/<[^>]+>/g, '');
+  setMeta(soru.soru + ' — HakBul', cevapTemiz.substring(0, 155), 'https://hakbul.com.tr/#/soru/' + soru.slug);
+  setFaqSchema(soru.soru, cevapTemiz);
+}
+
+function renderHakkinda() {
+  document.getElementById('page-hakkinda').classList.add('active');
+  document.getElementById('nav-hakkinda').classList.add('active');
+  document.getElementById('hero-section').style.display = 'none';
+  setMeta('Hakkında — HakBul', 'HakBul hakkında bilgi edinin.', 'https://hakbul.com.tr/#/hakkinda');
+  clearFaqSchema();
+}
+
+// ============================================================
+// SEO: META & SCHEMA
+// ============================================================
+function setMeta(title, desc, canonical) {
+  document.getElementById('page-title').textContent = title;
+  document.getElementById('page-desc').setAttribute('content', desc);
+  document.getElementById('canonical-url').setAttribute('href', canonical);
+}
+
+function setFaqSchema(soru, cevap) {
+  document.getElementById('faq-schema').textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": soru,
+      "acceptedAnswer": { "@type": "Answer", "text": cevap }
+    }]
+  });
+}
+
+function clearFaqSchema() {
+  document.getElementById('faq-schema').textContent = '';
+}
+
+// ============================================================
+// ARAMA
+// ============================================================
+function handleSearch(val) {
+  const results = document.getElementById('searchResults');
+  if (val.length < 2) { results.classList.remove('show'); return; }
+  const filtered = SORULAR.filter(s => s.soru.toLowerCase().includes(val.toLowerCase()));
+  if (filtered.length === 0) { results.classList.remove('show'); return; }
+  results.innerHTML = filtered.map(s => {
+    const k = KAT_AYAR[s.kat];
+    return `<div class="search-result-item" onclick="navigate('/soru/${s.slug}')">
+      <span class="search-result-q">${s.soru}</span>
+      <span class="search-result-cat">${k.emoji} ${k.isim}</span>
+    </div>`;
+  }).join('');
+  results.classList.add('show');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-wrap')) {
+    document.getElementById('searchResults').classList.remove('show');
+  }
+});
+
+// ============================================================
+// HASHCHANGE (geri/ileri tuşu + hash değişimi)
+// ============================================================
+window.addEventListener('hashchange', () => route(location.hash));
+
+// ============================================================
+// BAŞLANGIÇ
+// ============================================================
+route(location.hash || '/');
 </script>
 </body>
 </html>

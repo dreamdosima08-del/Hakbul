@@ -1,0 +1,102 @@
+name: Sitemap Güncelle
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'index.html'
+  workflow_dispatch:
+
+jobs:
+  sitemap-guncelle:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Repoyu çek
+        uses: actions/checkout@v4
+
+      - name: Slug'ları index.html'den çek ve sitemap.xml oluştur
+        run: |
+          TODAY=$(date -u +"%Y-%m-%d")
+
+          # index.html'deki tüm slug'ları çek
+          SLUGS=$(grep -o 'slug: "[^"]*"' index.html | sed 's/slug: "//;s/"//')
+
+          # sitemap.xml başlangıcı
+          cat > sitemap.xml << 'XMLSTART'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+            <!-- Ana sayfa -->
+            <url>
+              <loc>https://hakbul.com.tr/</loc>
+              <lastmod>TODAY_PLACEHOLDER</lastmod>
+              <changefreq>daily</changefreq>
+              <priority>1.0</priority>
+            </url>
+
+            <!-- Kategori sayfaları -->
+            <url>
+              <loc>https://hakbul.com.tr/#/sorular</loc>
+              <lastmod>TODAY_PLACEHOLDER</lastmod>
+              <changefreq>daily</changefreq>
+              <priority>0.9</priority>
+            </url>
+            <url>
+              <loc>https://hakbul.com.tr/#/sorular/memur</loc>
+              <lastmod>TODAY_PLACEHOLDER</lastmod>
+              <changefreq>weekly</changefreq>
+              <priority>0.8</priority>
+            </url>
+            <url>
+              <loc>https://hakbul.com.tr/#/sorular/guvenlik</loc>
+              <lastmod>TODAY_PLACEHOLDER</lastmod>
+              <changefreq>weekly</changefreq>
+              <priority>0.8</priority>
+            </url>
+            <url>
+              <loc>https://hakbul.com.tr/#/sorular/is-guvenligi</loc>
+              <lastmod>TODAY_PLACEHOLDER</lastmod>
+              <changefreq>weekly</changefreq>
+              <priority>0.8</priority>
+            </url>
+            <url>
+              <loc>https://hakbul.com.tr/#/sorular/isci-haklari</loc>
+              <lastmod>TODAY_PLACEHOLDER</lastmod>
+              <changefreq>weekly</changefreq>
+              <priority>0.8</priority>
+            </url>
+          XMLSTART
+
+          # TODAY_PLACEHOLDER'ı gerçek tarihle değiştir
+          sed -i "s/TODAY_PLACEHOLDER/$TODAY/g" sitemap.xml
+
+          # Her slug için URL bloğu ekle
+          while IFS= read -r slug; do
+            cat >> sitemap.xml << EOF
+            <url>
+              <loc>https://hakbul.com.tr/#/soru/${slug}</loc>
+              <lastmod>${TODAY}</lastmod>
+              <changefreq>monthly</changefreq>
+              <priority>0.7</priority>
+            </url>
+          EOF
+          done <<< "$SLUGS"
+
+          # Kapanış etiketi ekle
+          echo "" >> sitemap.xml
+          echo "</urlset>" >> sitemap.xml
+
+          echo "✅ sitemap.xml oluşturuldu — $(echo "$SLUGS" | wc -l) soru URL'si eklendi."
+
+      - name: sitemap.xml'i commit et
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git diff --staged --quiet || git commit -m "🗺️ sitemap.xml otomatik güncellendi [$(date -u +"%Y-%m-%d")]"
+          git push

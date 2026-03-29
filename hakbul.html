@@ -276,8 +276,8 @@
     </div>
 
     <div class="stats">
-      <div><div class="stat-val" id="stat-sayi">32</div><div class="stat-label">Soru & Cevap</div></div>
-      <div><div class="stat-val" id="stat-kat">4</div><div class="stat-label">Kategori</div></div>
+      <div><div class="stat-val" id="stat-sayi">—</div><div class="stat-label">Soru & Cevap</div></div>
+      <div><div class="stat-val" id="stat-kat">—</div><div class="stat-label">Kategori</div></div>
       <div><div class="stat-val">Ücretsiz</div><div class="stat-label">Erişim</div></div>
     </div>
   </div>
@@ -623,7 +623,7 @@ const SORULAR = [
     soru: "Part-time çalışanın izin hakkı var mı?",
     cevap: "Evet, <strong>kısmi süreli (part-time)</strong> çalışanlar da 4857 sayılı İş Kanunu kapsamında yıllık ücretli izin hakkına sahiptir. Yıllık izin süresi tam zamanlı çalışanlarla aynıdır; ancak izin ücreti <strong>kısmi çalışma süresine orantılı</strong> hesaplanır. 1 yılı dolduran part-time işçi izin hakkını kazanır. İşveren bu hakkı kullandırmayı reddedemez.",
     benzer: ["ik4", "ik5"]
-  }
+  },
   {
     id: "m6",
     slug: "memur-yillik-izin-kac-gun",
@@ -655,6 +655,176 @@ const SORULAR = [
     soru: "İşveren maaş ödemezse ne yapılır?",
     cevap: "İşveren maaşı <strong>20 gün geciktirirse</strong> işçi, iş sözleşmesini haklı nedenle feshedip kıdem tazminatı talep edebilir. Bunun yanında <strong>Çalışma ve Sosyal Güvenlik Bakanlığı'na</strong> şikâyet başvurusu yapılabilir. İş mahkemesinde ücret alacağı davası açmak da mümkündür. Ücret alacaklarında zamanaşımı süresi <strong>5 yıldır</strong>.",
     benzer: ["ik1", "ik3"]
+  },
+
+  // ── 4 KATEGORİ × 5 YENİ SORU ──
+
+  // MEMUR +5
+  {
+    id: "m9",
+    slug: "memur-sendikaya-uye-olabilir-mi",
+    kat: "memur",
+    soru: "Memur sendikaya üye olabilir mi?",
+    cevap: "Evet, devlet memurları <strong>4688 sayılı Kamu Görevlileri Sendikaları Kanunu</strong> kapsamında sendikaya üye olabilir. Üyelik tamamen gönüllülük esasına dayanır; işveren sendika üyeliğini zorunlu kılamaz veya engelleyemez. Memurlar toplu sözleşme görüşmelerine sendika aracılığıyla katılabilir. Ancak memur sendikaları <strong>grev yapamaz</strong>, yalnızca toplu sözleşme imzalayabilir.",
+    benzer: ["m5", "m4"]
+  },
+  {
+    id: "m10",
+    slug: "memur-gorevden-uzaklastirilabirmi",
+    kat: "memur",
+    soru: "Memur görevden uzaklaştırılabilir mi?",
+    cevap: "Evet, 657 sayılı Kanun'a göre <strong>disiplin soruşturması</strong> başlatılan memur geçici olarak görevden uzaklaştırılabilir. Bu süre en fazla <strong>3 ay</strong>dır; zorunlu hâllerde 3 ay daha uzatılabilir. Görevden uzaklaştırılan memur maaşının <strong>2/3'ünü</strong> almaya devam eder. Soruşturma beraatle sonuçlanırsa memur görevine iade edilir ve kesilen maaş farkı ödenir.",
+    benzer: ["m4", "m2"]
+  },
+  {
+    id: "m11",
+    slug: "memur-emeklilik-yasi-kac",
+    kat: "memur",
+    soru: "Memur emeklilik yaşı kaç?",
+    cevap: "Devlet memurları için <strong>emeklilik yaşı 65</strong> olarak belirlenmiştir. Ancak prim/hizmet süresi yeterliyse daha erken emeklilik mümkündür. Kadın memurlar için bazı erken emeklilik hükümleri uygulanabilmektedir. <strong>25 yıl hizmet ve 58 yaş</strong> koşulunu birlikte sağlayan memurlar kendi isteğiyle emekliye ayrılabilir. Emekli maaşı SGK tarafından hesaplanır.",
+    benzer: ["m2", "m3"]
+  },
+  {
+    id: "m12",
+    slug: "memur-gorev-yeri-degistirilebilir-mi",
+    kat: "memur",
+    soru: "Memur isteği dışında görev yeri değiştirilebilir mi?",
+    cevap: "Evet, devlet memurları <strong>kurumun hizmet gereklerine göre</strong> isteği dışında başka bir göreve veya ile atanabilir. Bu yetki, 657 sayılı Kanun çerçevesinde idareye tanınmıştır. Ancak atama kararı <strong>keyfi olamaz</strong>, hizmet gerekliliğine dayanmalıdır. Memurun aile birliği, sağlık veya eş durumu mazeretleri atama işlemini etkileyebilir; bu gerekçelerle idari itiraz yoluna gidilebilir.",
+    benzer: ["m3", "m8"]
+  },
+  {
+    id: "m13",
+    slug: "memur-performans-degerlendirilmesi-nedir",
+    kat: "memur",
+    soru: "Memur performans değerlendirmesi nedir?",
+    cevap: "Devlet memurları <strong>sicil amiri</strong> tarafından her yıl değerlendirilir. Değerlendirme; görevdeki başarı, disiplin, davranış ve çalışma verimliliğini kapsar. Düşük performans notu alan memur <strong>kademe ilerlemesinden yararlanamayabilir</strong>. Memurun değerlendirmeye itiraz hakkı bulunmakta olup bu itiraz üst amir ya da idare mahkemesine yapılabilir.",
+    benzer: ["m4", "m2"]
+  },
+
+  // ÖZEL GÜVENLİK +5
+  {
+    id: "g9",
+    slug: "guvenlik-gorevlisi-kac-saatte-bir-mola-kullanir",
+    kat: "guvenlik",
+    soru: "Güvenlik görevlisi kaç saatte bir mola kullanır?",
+    cevap: "4857 sayılı İş Kanunu'na göre <strong>4 saatten 7,5 saate kadar</strong> süren çalışmalarda 30 dakika, <strong>7,5 saatten uzun</strong> çalışmalarda 1 saat ara dinlenmesi zorunludur. Bu mola süresi <strong>çalışma süresinden sayılmaz</strong> ve ücretsizdir. İşveren molaları kesintisiz kullandırmak zorundadır. Mola hakkını kullandırmayan işveren iş mevzuatı kapsamında yaptırımla karşılaşabilir.",
+    benzer: ["g1", "g5"]
+  },
+  {
+    id: "g10",
+    slug: "guvenlik-gorevlisi-isyeri-degistirilirse-ne-olur",
+    kat: "guvenlik",
+    soru: "Güvenlik görevlisinin işyeri değiştirilirse ne olur?",
+    cevap: "Özel güvenlik şirketleri, personeli farklı müşteri işyerlerine görevlendirebilir; ancak bu değişiklik <strong>iş sözleşmesindeki koşulları esaslı biçimde değiştiriyorsa</strong> işçinin yazılı onayı gerekir. Sözleşmede esneklik maddesi yoksa güvenlik görevlisi değişikliği reddedebilir. Reddedilmesi halinde işveren fesih yoluna giderse işçi <strong>kıdem ve ihbar tazminatı</strong> hakkını kazanır.",
+    benzer: ["g3", "g2"]
+  },
+  {
+    id: "g11",
+    slug: "ozel-guvenlik-belgesi-kac-yil-gecerli",
+    kat: "guvenlik",
+    soru: "Özel güvenlik belgesi kaç yıl geçerli?",
+    cevap: "Özel güvenlik kimlik kartı <strong>5 yıl geçerlidir</strong>. Süre dolmadan en az <strong>1 ay önce</strong> yenileme başvurusu yapılması gerekir. Yenileme için güncel sağlık raporu, adli sicil belgesi ve eğitim belgesi istenir. Kartı süresi içinde yenilenmeyen güvenlik görevlisi <strong>aktif olarak çalışamaz</strong>; işveren bu personeli görevden almakla yükümlüdür.",
+    benzer: ["g4", "g2"]
+  },
+  {
+    id: "g12",
+    slug: "guvenlik-gorevlisi-silah-tasimak-zorunda-mi",
+    kat: "guvenlik",
+    soru: "Güvenlik görevlisi silah taşımak zorunda mı?",
+    cevap: "Hayır, silah taşıma zorunlu değildir. Görevin <strong>silahlı mı yoksa silahsız mı</strong> yürütüleceği iş sözleşmesinde ve görev tanımında belirtilir. Silahlı görev için ayrıca <strong>silahlı güvenlik eğitimi belgesi</strong> ve valiliğin izni şarttır. Silahsız çalışmak isteyen personel bu talebini işverene iletebilir; işveren zorla silahlı görev veremez.",
+    benzer: ["g4", "g7"]
+  },
+  {
+    id: "g13",
+    slug: "guvenlik-gorevlisi-tatil-gunleri-calisirsa",
+    kat: "guvenlik",
+    soru: "Güvenlik görevlisi tatil günleri çalışırsa ne alır?",
+    cevap: "Ulusal bayram ve genel tatil günlerinde çalışan güvenlik görevlisine <strong>normal günlük ücretinin 1 katı daha fazla</strong> ödenmesi zorunludur; yani o gün için toplamda <strong>2 kat ücret</strong> alır. Hafta tatilinde çalışılması halinde de aynı kural geçerlidir. İşveren bu ücreti ödemezse işçi iş mahkemesine başvurabilir.",
+    benzer: ["g5", "g1"]
+  },
+
+  // İŞ GÜVENLİĞİ +5
+  {
+    id: "i9",
+    slug: "isg-uzmani-olmayan-isyerine-ceza-var-mi",
+    kat: "is",
+    soru: "İSG uzmanı olmayan işyerine ceza var mı?",
+    cevap: "Evet. 6331 sayılı Kanun gereğince <strong>50 ve üzeri çalışanı olan</strong> tüm işyerleri ile tehlike sınıfına göre daha küçük işyerleri de İSG uzmanı çalıştırmak zorundadır. Bu yükümlülüğü yerine getirmeyen işverene <strong>yüksek idari para cezası</strong> uygulanır. Ceza miktarı işyerinin tehlike sınıfı ve çalışan sayısına göre değişir; denetim Çalışma Bakanlığı müfettişlerince yapılır.",
+    benzer: ["i2", "i4"]
+  },
+  {
+    id: "i10",
+    slug: "is-guvenligi-kurulu-zorunlu-mu",
+    kat: "is",
+    soru: "İş güvenliği kurulu zorunlu mu?",
+    cevap: "<strong>50 ve üzeri çalışanı olan</strong> ve altı aydan uzun süreli işlerin yürütüldüğü işyerlerinde İş Sağlığı ve Güvenliği (İSG) Kurulu oluşturulması <strong>yasal zorunluluktur</strong>. Kurul ayda en az bir kez toplanmalı, kararlar bağlayıcı nitelik taşımalıdır. İşveren kurul kararlarını uygulamak zorundadır. Kurulun bulunmaması idari para cezasına yol açar.",
+    benzer: ["i2", "i5"]
+  },
+  {
+    id: "i11",
+    slug: "is-kazasinda-isveren-cezai-sorumlu-olur-mu",
+    kat: "is",
+    soru: "İş kazasında işveren cezai sorumlu olur mu?",
+    cevap: "Evet. İş kazasında <strong>işverenin kusuru tespit edilirse</strong> hem idari hem de cezai sorumluluk doğabilir. İşçinin ölümü veya ağır yaralanmasıyla sonuçlanan kazalarda işveren <strong>taksirle yaralama veya öldürme</strong> suçlamasıyla yargılanabilir. Ayrıca SGK, ödediği tazminat ve gelirleri işverene rücu edebilir. Gerekli önlemleri almayan işverenin sigorta şirketi de sorumlu tutulabilir.",
+    benzer: ["i1", "i3"]
+  },
+  {
+    id: "i12",
+    slug: "isyeri-hekimi-zorunlu-mu",
+    kat: "is",
+    soru: "İşyeri hekimi zorunlu mu?",
+    cevap: "6331 sayılı Kanun kapsamında <strong>tehlikeli ve çok tehlikeli</strong> sınıftaki işyerleri ile belirli büyüklükteki diğer işyerleri işyeri hekimi çalıştırmak zorundadır. İşyeri hekimi; periyodik sağlık muayenelerini yapar, meslek hastalığı risklerini değerlendirir ve çalışanları bilgilendirir. Bu yükümlülüğü yerine getirmeyen işverene <strong>idari para cezası</strong> uygulanır.",
+    benzer: ["i2", "i5"]
+  },
+  {
+    id: "i13",
+    slug: "calisan-kisisel-koruyucu-ekipman-kullanmak-zorunda-mi",
+    kat: "is",
+    soru: "Çalışan kişisel koruyucu ekipman kullanmak zorunda mı?",
+    cevap: "Evet. İşveren gerekli <strong>kişisel koruyucu donanımları (KKD)</strong> ücretsiz temin etmekle yükümlüdür; çalışan da bunları kullanmak zorundadır. Baret, eldiven, gözlük, emniyet kemeri gibi ekipmanların kullanılmaması hem <strong>disiplin cezasına</strong> hem de iş kazasında tazminat hakkının kısmen kaybedilmesine yol açabilir. KKD kullanımı denetimlerle kontrol edilir.",
+    benzer: ["i2", "i4"]
+  },
+
+  // İŞÇİ HAKLARI +5
+  {
+    id: "ik9",
+    slug: "hamile-isci-haklari-nelerdir",
+    kat: "isci",
+    soru: "Hamile işçinin hakları nelerdir?",
+    cevap: "Hamile işçi <strong>doğumdan 8 hafta önce ve 8 hafta sonra</strong> olmak üzere toplam 16 hafta ücretli doğum izni kullanır. Çoğul gebeliklerde bu süreye 2 hafta eklenir. İşveren hamilelik nedeniyle işçiyi <strong>işten çıkaramaz</strong>; aksi hâl haksız fesih sayılır. Hamile işçi gece çalışmasından muaf tutulabilir ve ağır işlerde çalıştırılamaz.",
+    benzer: ["ik3", "ik4"]
+  },
+  {
+    id: "ik10",
+    slug: "mobbing-nedir-ne-yapilir",
+    kat: "isci",
+    soru: "İşyerinde mobbing nedir, ne yapılabilir?",
+    cevap: "Mobbing; işyerinde sistematik biçimde uygulanan <strong>psikolojik baskı, aşağılama veya dışlama</strong> davranışlarıdır. Türk hukukunda mobbing açıkça yasaklanmıştır. Mağdur işçi <strong>iş sözleşmesini haklı nedenle feshedip kıdem tazminatı</strong> talep edebilir ve manevi tazminat davası açabilir. Çalışma Bakanlığı'na şikâyet ya da iş mahkemesine başvuru diğer seçeneklerdir.",
+    benzer: ["ik3", "ik6"]
+  },
+  {
+    id: "ik11",
+    slug: "isci-kilık-kıyafet-zorunlulugu-var-mi",
+    kat: "isci",
+    soru: "İşçi kılık kıyafet zorunluluğuna uymak zorunda mı?",
+    cevap: "İşverenin iş sözleşmesinde veya iç yönetmelikte belirlediği <strong>kılık kıyafet kuralları bağlayıcıdır</strong>. Ancak bu kurallar din, vicdan veya kişilik haklarını ihlal edecek nitelikte olamaz. Makul ve meşru kıyafet kurallarına uymayan işçi <strong>disiplin cezasıyla</strong> karşılaşabilir. Aşırı veya ayrımcı nitelikteki uygulamalar için iş mahkemesine başvurulabilir.",
+    benzer: ["ik3", "ik7"]
+  },
+  {
+    id: "ik12",
+    slug: "isci-esnek-calisma-talep-edebilir-mi",
+    kat: "isci",
+    soru: "İşçi esnek çalışma talep edebilir mi?",
+    cevap: "4857 sayılı Kanun esneklik düzenlemelerine olanak tanır; ancak <strong>esnek çalışma hakkı doğrudan talep edilemez</strong>, işverenin onayı gerekir. Uzaktan çalışma, part-time veya vardiyalı düzenlemeler <strong>iş sözleşmesine ek protokolle</strong> hayata geçirilir. Küçük çocuğu olan veya engelli yakınına bakan işçiler bazı toplu iş sözleşmeleri kapsamında öncelikli esnek çalışma hakkına sahip olabilir.",
+    benzer: ["ik4", "ik8"]
+  },
+  {
+    id: "ik13",
+    slug: "isci-sozlesmesi-olmadan-calistirilabilir-mi",
+    kat: "isci",
+    soru: "İşçi sözleşme olmadan çalıştırılabilir mi?",
+    cevap: "Yazılı sözleşme olmasa da <strong>fiili çalışma başladığı andan itibaren</strong> iş ilişkisi kurulmuş sayılır ve işçi tüm yasal haklardan yararlanır. Ancak işveren, süresi <strong>1 yılı aşan</strong> iş sözleşmelerini yazılı yapmak zorundadır. Yazılı sözleşme yoksa ispat yükü işçinin aleyhine oluşabilir; bu nedenle sözleşme imzalamak hem işçiyi hem de işvereni korur.",
+    benzer: ["ik3", "ik6"]
   }
 ];
 
@@ -676,6 +846,16 @@ SORULAR.forEach(s => { slugMap[s.slug] = s.id; });
 
 function soruById(id) { return SORULAR.find(s => s.id === id); }
 function soruBySlug(slug) { return SORULAR.find(s => s.slug === slug); }
+
+// ============================================================
+// SAYAÇLARI HEMEN GÜNCELLE — sayfa açılır açılmaz çalışır
+// ============================================================
+function updateStats() {
+  const sayi = document.getElementById('stat-sayi');
+  const kat  = document.getElementById('stat-kat');
+  if (sayi) sayi.textContent = SORULAR.length;
+  if (kat)  kat.textContent  = Object.keys(KAT_AYAR).length;
+}
 
 // ============================================================
 // NAVIGATE & ROUTER — Hash tabanlı (#)
@@ -891,6 +1071,7 @@ window.addEventListener('hashchange', () => route(location.hash));
 // ============================================================
 // BAŞLANGIÇ
 // ============================================================
+updateStats();
 route(location.hash || '/');
 </script>
 </body>

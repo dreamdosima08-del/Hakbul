@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">HakBul</title>
+<meta name="description" id="page-desc" content="">
+<link rel="canonical" id="canonical-url" href="https://hakbul.com.tr/">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1e3a5f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script type="application/ld+json" id="faq-schema"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: #f0f4f8; color: #1e293b; }
+
+  header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1a4a8a 100%);
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .header-inner {
+    max-width: 900px; margin: 0 auto; padding: 14px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+  .logo-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #dc2626);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 900; color: #fff;
+  }
+  .logo-text { font-weight: 900; font-size: 18px; color: #fff; letter-spacing: -0.5px; }
+  .logo-sub { font-size: 10px; color: #94a3b8; }
+
+  main { max-width: 900px; margin: 0 auto; padding: 24px 14px 40px; }
+
+  .breadcrumb {
+    font-size: 12px; color: #94a3b8; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  }
+  .breadcrumb a { color: #64748b; text-decoration: none; }
+  .breadcrumb a:hover { color: #2563eb; }
+
+  .soru-kart {
+    background: #fff; border-radius: 16px; padding: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 16px;
+  }
+  .kat-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 700; padding: 4px 12px;
+    border-radius: 20px; margin-bottom: 14px;
+  }
+  .soru-baslik {
+    font-size: clamp(18px, 5vw, 26px); font-weight: 900;
+    color: #0f172a; line-height: 1.3;
+  }
+  .cevap-kart {
+    background: #fff; border-radius: 16px; padding: 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 16px;
+  }
+  .cevap-baslik {
+    font-size: 12px; font-weight: 700; color: #64748b;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
+  }
+  .cevap-metin {
+    font-size: 15px; color: #334155; line-height: 1.9;
+    padding: 16px 18px; border-radius: 0 8px 8px 0;
+    border-left: 4px solid #2563eb; background: #f8faff;
+  }
+  .uyari {
+    background: #fef3c7; border-left: 4px solid #d97706;
+    padding: 12px 14px; border-radius: 0 8px 8px 0;
+    font-size: 12px; color: #92400e; margin-top: 14px;
+  }
+  .benzer-kart {
+    background: #fff; border-radius: 16px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 16px;
+  }
+  .benzer-baslik { font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 12px; }
+  .benzer-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 14px; border-radius: 10px; border: 1px solid #e2e8f0;
+    text-decoration: none; color: #1e293b; margin-bottom: 8px;
+    transition: all 0.15s; font-size: 13px; font-weight: 600;
+  }
+  .benzer-item:hover { background: #f8faff; }
+  .benzer-arrow { font-size: 18px; opacity: 0.4; }
+
+  .hata { text-align: center; padding: 60px 20px; color: #64748b; }
+  .hata h2 { font-size: 24px; margin-bottom: 12px; }
+  .hata a { color: #2563eb; text-decoration: none; font-weight: 700; }
+
+  footer { text-align: center; padding: 20px 16px; color: #94a3b8; font-size: 12px; border-top: 1px solid #e2e8f0; margin-top: 10px; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  main { animation: fadeIn 0.3s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo-wrap" href="/">
+      <div class="logo-icon">?</div>
+      <div>
+        <div class="logo-text">HakBul</div>
+        <div class="logo-sub">Çalışan Hakları Rehberi</div>
+      </div>
+    </a>
+    <a href="/sorular.html" style="color:#94a3b8;font-size:13px;font-weight:700;text-decoration:none;">← Tüm Sorular</a>
+  </div>
+</header>
+
+<main id="icerik">
+  <div class="hata">
+    <h2>⏳ Yükleniyor...</h2>
+  </div>
+</main>
+
+<footer>© 2026 HakBul — Türk Çalışan Hakları Rehberi<br>
+<span style="font-size:11px;">Sitedeki içerikler yalnızca bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.</span>
+</footer>
+
+<script>
+// ============================================================
+// VERİ — index.html ile aynı SORULAR dizisi
+// ============================================================
+const SORULAR = [
+  { id:"m1", slug:"1-gun-rapor-alininca-maas-kesilir-mi", kat:"memur", soru:"1 gün rapor alınca maaş kesilir mi?", cevap:"Devlet memurları için hastalık raporu alınması maaş kesintisine yol açmaz. 657 sayılı Devlet Memurları Kanunu'nun 105. maddesi uyarınca memurlar, <strong>yetkili sağlık kuruluşlarından aldıkları raporlar</strong> kapsamında hastalık izni kullanabilir ve bu süre boyunca maaşları tam olarak ödenir. Ayrıca memurlar, rapor almaksızın <strong>yılda 10 güne kadar</strong> hastalık gerekçesiyle mazeret izni de kullanabilir; bu 10 günlük süre için de maaş kesilmez. Uzun süreli hastalık izinlerinde (6 ayı aşan durumlarda) aylık bağlama koşulları farklılaşabilir. Özel sektör çalışanlarında ise SGK, hastalık ödeneğini <strong>istirahat süresinin 3. gününden</strong> itibaren öder; ilk iki gün için herhangi bir ödeme yapılmaz.", benzer:["m2","m3"] },
+  { id:"m2", slug:"devlet-memuru-istifa-edince-tazminat-alir-mi", kat:"memur", soru:"Devlet memuru istifa edince tazminat alır mı?", cevap:"Devlet memurları kendi isteğiyle istifa ettiğinde <strong>kıdem tazminatı alamaz</strong>; zira kıdem tazminatı yalnızca 4857 sayılı İş Kanunu kapsamındaki işçilere özgü bir haktır. Memurlar için bu tazminatın karşılığı niteliğindeki hak <strong>emekli ikramiyesidir</strong>; 5434 sayılı T.C. Emekli Sandığı Kanunu kapsamında emeklilik, ölüm veya malullük durumlarında ödenir, istifada ödenmez. Önemli bir husus olarak istifa eden memurun <strong>kullanmadığı yıllık izin günleri için nakdi ödeme talep hakkı bulunmamaktadır</strong>; memur izinleri para karşılığına çevrilememektedir. Bu durum işçilerden temel bir fark oluşturur. İstifa eden memur, varsa birikmiş fazla çalışma ücretlerini ve emekli keseneği iadelerini belirli koşullarda talep edebilir.", benzer:["m3","m5"] },
+  { id:"m3", slug:"memur-kac-gun-mazeret-izni-kullanabilir", kat:"memur", soru:"Memur kaç gün mazeret izni kullanabilir?", cevap:"657 sayılı Devlet Memurları Kanunu'nun 104. maddesi uyarınca memurlar çeşitli mazeret izinlerinden yararlanabilir. <strong>Evlilik</strong> nedeniyle 7 gün, <strong>eş doğumu</strong> nedeniyle babaya <strong>5 gün</strong>, <strong>anne, baba, eş veya çocuğun vefatı</strong> hâlinde 7 gün, <strong>kardeş ya da kayınvalide/kayınpeder vefatında</strong> ise 3 gün mazeret izni tanınmaktadır. Bunlara ek olarak memurlar, <strong>rapor almaksızın yılda en fazla 10 güne kadar</strong> hastalık gerekçesiyle de mazeret izni kullanabilir. Söz konusu izinlerin tamamı ücretlidir; maaştan herhangi bir kesinti yapılmaz.", benzer:["m1","m4"] },
+  { id:"m4", slug:"disiplin-cezasi-sicile-islenir-mi", kat:"memur", soru:"Disiplin cezası sicile işlenir mi?", cevap:"Evet, tüm disiplin cezaları memurun <strong>özlük dosyasına işlenir</strong>. 657 sayılı Kanun'un 133. maddesi uyarınca belirli süreler geçtikten sonra ceza talep üzerine sicilden silinebilir. <strong>Uyarı ve kınama</strong> cezaları <strong>5 yıl sonra</strong>, <strong>aylıktan kesme ve kademe ilerlemesinin durdurulması</strong> cezaları ise <strong>10 yıl sonra</strong> yazılı talep üzerine silinebilir. Silme işlemi kendiliğinden gerçekleşmez; memurun bizzat dilekçe vermesi şarttır. Disiplin cezalarına karşı önce <strong>disiplin kuruluna itiraz</strong>, ardından <strong>idare mahkemesine iptal davası</strong> yolu açıktır.", benzer:["m5","m2"] },
+  { id:"m5", slug:"memur-grev-yapabilir-mi", kat:"memur", soru:"Memur grev yapabilir mi?", cevap:"Türk hukukunda devlet memurlarının <strong>grev yapması anayasal düzeyde yasaklanmıştır</strong>. Anayasa'nın 54. maddesi grev hakkını yalnızca işçilere tanımış; kamu görevlileri bu kapsamın dışında bırakılmıştır. 657 sayılı Kanun da bu yasağı açıkça pekiştirmekte; greve katılan memura aylıktan kesme cezasından kademe ilerlemesinin durdurulmasına kadar uzanan disiplin yaptırımları öngörmektedir. Bununla birlikte memurların <strong>sendikaya üye olma</strong> hakları 4688 sayılı Kanun ile güvence altına alınmıştır.", benzer:["m4","m3"] },
+  { id:"m6", slug:"memur-yillik-izin-kac-gun", kat:"memur", soru:"Memur yıllık izin kaç gün?", cevap:"657 sayılı Kanun'un 102. maddesi uyarınca <strong>1-10 yıl</strong> hizmeti olan memurlara 20 gün, <strong>10 yıldan fazla</strong> hizmeti olanlara 30 gün yıllık izin tanınır. Yurt dışında görev yapanlara <strong>10 gün eklenir</strong>. Kullanılmayan izin bir sonraki yıla <strong>en fazla 10 gün</strong> devredilebilir.", benzer:["m3","m1"] },
+  { id:"m7", slug:"memur-baska-ile-tayin-isteyebilir-mi", kat:"memur", soru:"Memur başka ile tayin isteyebilir mi?", cevap:"Evet, devlet memurları <strong>657 sayılı Kanun'un 72-76. maddeleri</strong> kapsamında eş durumu, sağlık ve aile birliği gibi mazeretlerle nakil talebinde bulunabilir. Talep reddedilirse <strong>idari itiraz</strong> ya da <strong>idare mahkemesine iptal davası</strong> yoluna başvurulabilir.", benzer:["m3","m2"] },
+  { id:"m8", slug:"memur-ikinci-is-yapabilir-mi", kat:"memur", soru:"Memur ikinci iş yapabilir mi?", cevap:"657 sayılı Kanun'un 28. maddesi memurlarına kapsamlı bir <strong>ikinci iş yasağı</strong> getirir. Ticaret yapamaz, özel şirkette ortak ya da yönetici olamazlar. İstisnalar: telif eserleri, tarımsal faaliyet ve belirli koşullarda ders/konferans. İzinsiz ikinci iş <strong>uyarıdan görevden çıkarmaya</strong> kadar disiplin cezasına yol açabilir.", benzer:["m4","m5"] },
+  { id:"m9", slug:"memur-sendikaya-uye-olabilir-mi", kat:"memur", soru:"Memur sendikaya üye olabilir mi?", cevap:"Evet, <strong>4688 sayılı Kanun</strong> kapsamında sendikaya üye olunabilir. Üyelik gönüllüdür; zorlanamaz. Memur sendikaları toplu sözleşme görüşmelerine katılabilir ancak <strong>grev kararı alamaz</strong>.", benzer:["m5","m4"] },
+  { id:"m10", slug:"memur-gorevden-uzaklastirilabirmi", kat:"memur", soru:"Memur görevden uzaklaştırılabilir mi?", cevap:"657 sayılı Kanun'un 137-145. maddeleri uyarınca soruşturma süresince geçici uzaklaştırma mümkündür. Süre en fazla <strong>3 ay</strong>, zorunlulukta <strong>3 ay daha uzatılabilir</strong>. Uzaklaştırılan memur maaşının <strong>üçte ikisini</strong> almaya devam eder. Beraatle sonuçlanırsa fark iade edilir.", benzer:["m4","m2"] },
+  { id:"m11", slug:"memur-emeklilik-yasi-kac", kat:"memur", soru:"Memur emeklilik yaşı kaç?", cevap:"Genel kural olarak <strong>emeklilik yaşı 65</strong>'tir. Belirli hizmet süresi ve yaş koşullarını sağlayanlar erken emekliliğe başvurabilir. Bireysel koşullar için <strong>SGK veya kurumun özlük işleri birimi</strong> ile iletişime geçilmesi önerilir.", benzer:["m2","m3"] },
+  { id:"m12", slug:"memur-gorev-yeri-degistirilebilir-mi", kat:"memur", soru:"Memur isteği dışında görev yeri değiştirilebilir mi?", cevap:"657 sayılı Kanun'un 76. maddesi çerçevesinde hizmet gereği atama yapılabilir. Ancak karar <strong>keyfi olamaz</strong>; mazeretler ileri sürülerek <strong>idari itiraz</strong> veya <strong>idare mahkemesi</strong> yoluna gidilebilir.", benzer:["m3","m8"] },
+  { id:"m13", slug:"memur-performans-degerlendirilmesi-nedir", kat:"memur", soru:"Memur performans değerlendirmesi nedir?", cevap:"Kurumların kendi yönetmelikleriyle yürüttüğü değerlendirmedir. Olumsuz sonuç <strong>kademe ilerlemesini engelleyebilir</strong>. Haksız bulunursa <strong>üst amir itirazı</strong> ya da <strong>idare mahkemesi</strong> yoluna gidilebilir.", benzer:["m4","m2"] },
+  { id:"g1", slug:"ozel-guvenlik-gece-vardiyasi-kac-saat", kat:"guvenlik", soru:"Özel güvenlik gece vardiyası kaç saat?", cevap:"4857 sayılı İş Kanunu'nun 69. maddesi uyarınca gece çalışması <strong>en fazla 7,5 saat</strong>tir; bu sınır sözleşmeyle aşılamaz. 7,5 saati geçen çalışma <strong>hukuka aykırıdır</strong> ve fazla mesai olarak %50 zamlı ödenmelidir. Gece dönemi <strong>20.00-06.00</strong> arasıdır.", benzer:["g5","g3"] },
+  { id:"g2", slug:"guvenlik-izni-iptal-edilirse-ne-olur", kat:"guvenlik", soru:"Güvenlik izni iptal edilirse ne olur?", cevap:"5188 sayılı Kanun uyarınca kimlik kartı iptal edilen kişi <strong>güvenlik görevlisi olarak çalışamaz</strong>. Kart <strong>valilik kararıyla</strong> iptal edilir. Karara karşı <strong>valiliğe idari itiraz</strong> ve ardından <strong>idare mahkemesine iptal davası</strong> açılabilir.", benzer:["g4","g3"] },
+  { id:"g3", slug:"ozel-guvenlik-kidem-tazminati-alir-mi", kat:"guvenlik", soru:"Özel güvenlik kıdem tazminatı alır mı?", cevap:"Evet, özel güvenlik görevlileri <strong>işçi statüsünde</strong> olduğundan 1475 sayılı Kanun'un 14. maddesi kapsamında kıdem tazminatı hakkına sahiptir. En az <strong>1 yıl çalışmış</strong> ve haklı nedenle ayrılmış olması gerekir. Her tam yıl için <strong>30 günlük brüt ücret</strong> ödenir.", benzer:["g5","g1"] },
+  { id:"g4", slug:"silah-tasima-ruhsati-nasil-yenilenir", kat:"guvenlik", soru:"Silah taşıma ruhsatı nasıl yenilenir?", cevap:"Yenileme başvurusu <strong>görev yapılan ilin valiliğine veya İl Emniyet Müdürlüğüne</strong> yapılır. Güncel sağlık raporu, temiz adli sicil, görev belgesi ve silahlı eğitim sertifikası gereklidir. Süre dolmadan en az <strong>1 ay önce</strong> başvurulması önerilir.", benzer:["g2","g5"] },
+  { id:"g5", slug:"ozel-guvenlik-fazla-mesai-hakki-var-mi", kat:"guvenlik", soru:"Özel güvenlik fazla mesai hakkı var mı?", cevap:"Evet, haftalık <strong>45 saati aşan</strong> her saat fazla mesai sayılır ve <strong>%50 zamlı</strong> ödenir. Yılda en fazla <strong>270 saat</strong> fazla mesai yaptırılabilir. Ücret yerine <strong>1,5 kat serbest zaman</strong> da verilebilir. Zamanaşımı <strong>5 yıldır</strong>.", benzer:["g1","g3"] },
+  { id:"g6", slug:"guvenlik-gorevlisi-rapor-alabilir-mi", kat:"guvenlik", soru:"Güvenlik görevlisi rapor alabilir mi?", cevap:"Evet, işçi statüsünde olduğundan rapor alabilir. SGK ödeneği <strong>3. günden</strong> itibaren başlar; ilk 2 günün ücretini işveren ödeyip ödemeyeceği sözleşmeye göre belirlenir. Rapor süresince işveren <strong>sözleşmeyi feshedemez</strong>.", benzer:["g3","g5"] },
+  { id:"g7", slug:"guvenlik-gorevlisi-unifroma-zorunlu-mu", kat:"guvenlik", soru:"Güvenlik görevlisi üniforma giymek zorunda mı?", cevap:"Evet, 5188 sayılı Kanun gereği <strong>görev süresince onaylı üniforma</strong> zorunludur. Renk ve biçim İçişleri Bakanlığı'nca belirlenir; polis/jandarma üniformasına benzeyemez. Temini <strong>işverenin yükümlülüğündedir</strong>.", benzer:["g2","g4"] },
+  { id:"g8", slug:"guvenlik-gorevlisi-grev-yapabilir-mi", kat:"guvenlik", soru:"Güvenlik görevlisi grev yapabilir mi?", cevap:"Teorik olarak işçi statüsünde grev hakkı mevcuttur; ancak <strong>can ve mal güvenliğini ilgilendiren</strong> hizmetlerde grev kısıtlanabilir. Herhangi bir grev kararı öncesinde <strong>bağlı olunan sendikanın hukuki görüşünün</strong> alınması şarttır.", benzer:["g5","g3"] },
+  { id:"g9", slug:"guvenlik-gorevlisi-kac-saatte-bir-mola-kullanir", kat:"guvenlik", soru:"Güvenlik görevlisi kaç saatte bir mola kullanır?", cevap:"4857 sayılı Kanun'un 68. maddesi: <strong>4-7,5 saat</strong> çalışmada 30 dakika, <strong>7,5 saati aşan</strong> çalışmada 1 saat ara dinlenmesi zorunludur. Bu süreler <strong>ücretsizdir ve çalışma saatinden sayılmaz</strong>.", benzer:["g1","g5"] },
+  { id:"g10", slug:"guvenlik-gorevlisi-isyeri-degistirilirse-ne-olur", kat:"guvenlik", soru:"Güvenlik görevlisinin işyeri değiştirilirse ne olur?", cevap:"Sözleşmedeki temel koşulları esaslı biçimde değiştiriyorsa <strong>işçinin yazılı onayı</strong> gerekir (4857/22. madde). Onay vermezse işveren fesheder; işçi <strong>kıdem ve ihbar tazminatı</strong> alır.", benzer:["g3","g2"] },
+  { id:"g11", slug:"ozel-guvenlik-belgesi-kac-yil-gecerli", kat:"guvenlik", soru:"Özel güvenlik belgesi kaç yıl geçerli?", cevap:"Kimlik kartı <strong>5 yıl</strong> geçerlidir. Süre dolmadan en az <strong>1 ay önce</strong> yenileme başvurusu yapılmalıdır. Süresi dolan kartla çalıştıran işveren <strong>idari para cezasıyla</strong> karşılaşır.", benzer:["g4","g2"] },
+  { id:"g12", slug:"guvenlik-gorevlisi-silah-tasimak-zorunda-mi", kat:"guvenlik", soru:"Güvenlik görevlisi silah taşımak zorunda mı?", cevap:"Hayır, zorunlu değildir. Silahlı görev için <strong>silahlı eğitim sertifikası</strong> ve <strong>valilik izni</strong> şarttır. İşveren onay almadan silahlı göreve zorlayamaz.", benzer:["g4","g7"] },
+  { id:"g13", slug:"guvenlik-gorevlisi-tatil-gunleri-calisirsa", kat:"guvenlik", soru:"Güvenlik görevlisi tatil günleri çalışırsa ne alır?", cevap:"4857 sayılı Kanun'un 47. maddesi uyarınca ulusal bayram ve genel tatillerde çalışan işçi, normal günlük ücretine ek <strong>bir günlük ücret daha</strong> alır; toplamda <strong>2 kat ücret</strong>. Zamanaşımı <strong>5 yıldır</strong>.", benzer:["g5","g1"] },
+  { id:"i1", slug:"is-kazasi-gecirince-ne-yapilmali", kat:"is", soru:"İş kazası geçirince ne yapılmalı?", cevap:"İlk adım <strong>derhal sağlık yardımı almaktır</strong>. İşveren kazayı öğrendiği tarihten itibaren <strong>3 iş günü içinde SGK'ya bildirmek</strong> zorundadır. Haklar: geçici iş göremezlik ödeneği, sürekli iş göremezlik geliri, ölüm halinde hak sahiplerine gelir. İşverenin kusuru varsa <strong>maddi ve manevi tazminat davası</strong> da açılabilir.", benzer:["i2","i3"] },
+  { id:"i2", slug:"isveren-is-guvenligi-egitimi-vermek-zorunda-mi", kat:"is", soru:"İşveren iş güvenliği eğitimi vermek zorunda mı?", cevap:"Evet, 6331 sayılı Kanun'un 17. maddesi gereği tüm işverenler yükümlüdür. Süreler: <strong>az tehlikeli</strong> 8 saat/yıl, <strong>tehlikeli</strong> 12 saat/yıl, <strong>çok tehlikeli</strong> 16 saat/yıl. Eğitim belgesi imzalı olarak saklanmalıdır.", benzer:["i4","i5"] },
+  { id:"i3", slug:"meslek-hastaligi-tazminati-nasil-alinir", kat:"is", soru:"Meslek hastalığı tazminatı nasıl alınır?", cevap:"Önce <strong>SGK'nın yetkilendirdiği meslek hastalıkları hastanesinden</strong> resmi tanı alınmalıdır. SGK iş göremezlik geliri bağlar. İşverenin kusuru varsa <strong>iş mahkemesinde tazminat davası</strong> açılabilir. SGK'ya başvuru zamanaşımı <strong>5 yıldır</strong>.", benzer:["i1","i4"] },
+  { id:"i4", slug:"is-guvenligi-ihlali-cezasi-nedir", kat:"is", soru:"İş güvenliği ihlali cezası nedir?", cevap:"6331 sayılı Kanun kapsamında denetimde tespit edilen ihlallere <strong>idari para cezası</strong> uygulanır. Ceza miktarları her yıl güncellenmektedir; güncel tutarlar için <strong>Çalışma Bakanlığı'nın resmi sitesi</strong> esas alınmalıdır. Tekrar ihlalde ceza <strong>iki katına</strong> çıkarılır.", benzer:["i5","i2"] },
+  { id:"i5", slug:"risk-degerlendirmesi-kim-yapar", kat:"is", soru:"Risk değerlendirmesi kim yapar?", cevap:"6331 sayılı Kanun'un 10. maddesi uyarınca <strong>işverenin temel yasal yükümlülüğüdür</strong>. İSG uzmanı veya ekibine devredilebilir. Hazırlanan rapor işyerinde muhafaza edilmeli ve periyodik olarak yenilenmelidir.", benzer:["i4","i2"] },
+  { id:"i6", slug:"isyerinde-kamera-kaydi-yasal-mi", kat:"is", soru:"İşyerinde kamera kaydı yasal mı?", cevap:"Yasal; ancak <strong>KVKK</strong> kapsamında sınırlıdır. Çalışanlar önceden bilgilendirilmeli, rızaları alınmalıdır. <strong>Tuvalet, soyunma odası</strong> gibi alanlara kamera kurulamaz. Amaç dışı kullanım <strong>cezai yaptırım</strong> doğurur.", benzer:["i4","i2"] },
+  { id:"i7", slug:"is-kazasi-isverene-bildirilmezse-ne-olur", kat:"is", soru:"İş kazası işverene bildirilmezse ne olur?", cevap:"Bildirim yapılmazsa SGK süreci başlamaz; işçi <strong>tüm SGK haklarını kaybedebilir</strong>. İşveren kazayı bilerek bildirmezse <strong>idari para cezası</strong> ve SGK ödemelerine <strong>rücu</strong> riski doğar.", benzer:["i1","i3"] },
+  { id:"i8", slug:"isci-tehlikeli-is-reddedebilir-mi", kat:"is", soru:"İşçi tehlikeli iş yapmayı reddedebilir mi?", cevap:"Evet, 6331 sayılı Kanun'un 13. maddesi kapsamında <strong>yazılı bildirerek</strong> reddedebilir. Bu süre zarfında <strong>ücreti kesilmez</strong>. Bu gerekçeyle işten çıkarılırsa haksız fesih sayılır.", benzer:["i1","i4"] },
+  { id:"i9", slug:"isg-uzmani-olmayan-isyerine-ceza-var-mi", kat:"is", soru:"İSG uzmanı olmayan işyerine ceza var mı?", cevap:"Evet. 6331 sayılı Kanun'un 6. maddesi kapsamında zorunluluk işyerinin <strong>tehlike sınıfı ve çalışan sayısına</strong> göre belirlenir. Yükümlülüğü yerine getirmeyen işverene <strong>idari para cezası</strong> uygulanır; işyeri geçici <strong>durdurulabilir</strong>.", benzer:["i2","i4"] },
+  { id:"i10", slug:"is-guvenligi-kurulu-zorunlu-mu", kat:"is", soru:"İş güvenliği kurulu zorunlu mu?", cevap:"6331 sayılı Kanun'un 22. maddesi gereği <strong>50 ve üzeri çalışanı olan</strong> ve altı aydan uzun süreli işyerlerinde zorunludur. Ayda en az <strong>bir kez toplanmalı</strong>; kararlar bağlayıcıdır.", benzer:["i2","i5"] },
+  { id:"i11", slug:"is-kazasinda-isveren-cezai-sorumlu-olur-mu", kat:"is", soru:"İş kazasında işveren cezai sorumlu olur mu?", cevap:"Evet. Ölüm veya ağır yaralanmada işverenin İSG tedbirlerini alıp almadığı incelenir; kusur varsa <strong>TCK taksirle öldürme/yaralama</strong> hükümleri uygulanabilir. SGK ödediği tutarları işverene <strong>rücu eder</strong>.", benzer:["i1","i3"] },
+  { id:"i12", slug:"isyeri-hekimi-zorunlu-mu", kat:"is", soru:"İşyeri hekimi zorunlu mu?", cevap:"6331 sayılı Kanun'un 6. maddesi uyarınca zorunluluk <strong>tehlike sınıfı ve çalışan sayısına</strong> göre belirlenir. Güncel eşikler için <strong>Çalışma Bakanlığı'nın resmî kaynakları</strong> esas alınmalıdır.", benzer:["i2","i5"] },
+  { id:"i13", slug:"calisan-kisisel-koruyucu-ekipman-kullanmak-zorunda-mi", kat:"is", soru:"Çalışan kişisel koruyucu ekipman kullanmak zorunda mı?", cevap:"Evet. İşveren KKD'yi <strong>ücretsiz sağlamak</strong>, çalışan ise <strong>kurallara uygun kullanmakla</strong> yükümlüdür. KKD kullanmayan çalışanın iş kazasında tazminatı azaltılabilir.", benzer:["i2","i4"] },
+  { id:"ik1", slug:"kidem-tazminati-ne-zaman-alinir", kat:"isci", soru:"Kıdem tazminatı ne zaman alınır?", cevap:"En az <strong>1 yıl kesintisiz çalışmak</strong> ve sözleşmenin belirli nedenlerle sona ermesi gerekir. Hak kazandıran durumlar: haklı nedensiz fesih, haklı nedenle istifa, emeklilik, askerlik, kadın işçiler için evlilik (1 yıl içinde). Her tam yıl için <strong>30 günlük brüt ücret</strong> ödenir.", benzer:["ik2","ik3"] },
+  { id:"ik2", slug:"ihbar-suresi-ne-kadar", kat:"isci", soru:"İhbar süresi ne kadar?", cevap:"4857 sayılı Kanun'un 17. maddesi: <strong>6 aydan az</strong> 2 hafta, <strong>6 ay-1,5 yıl</strong> 4 hafta, <strong>1,5-3 yıl</strong> 6 hafta, <strong>3 yıldan fazla</strong> 8 hafta. Süreye uyulmadan fesih halinde <strong>ihbar tazminatı</strong> ödenir.", benzer:["ik1","ik4"] },
+  { id:"ik3", slug:"isci-izinsiz-isten-cikirilabilir-mi", kat:"isci", soru:"İşçi izinsiz işten çıkarılabilir mi?", cevap:"Haklı neden olmaksızın işten çıkarma halinde <strong>ihbar ve kıdem tazminatı</strong> ödenmek zorundadır. 30+ işçili işyerinde 6+ aydır çalışan işçi, <strong>1 ay içinde işe iade davası</strong> açabilir. İadeye uyulmazsa <strong>4-8 aylık brüt ücret</strong> tazminat ödenir.", benzer:["ik1","ik2"] },
+  { id:"ik4", slug:"yillik-izin-hakki-kac-gun", kat:"isci", soru:"Yıllık izin hakkı kaç gün?", cevap:"4857 sayılı Kanun'un 53. maddesi: <strong>1-5 yıl</strong> 14 gün, <strong>5-15 yıl</strong> 20 gün, <strong>15 yıldan fazla</strong> 26 gün. 18 yaş altı ve 50 yaş üstü işçilere en az <strong>20 gün</strong>. Kullandırılmayan izin için <strong>ücret alacağı</strong> talep edilebilir.", benzer:["ik3","ik5"] },
+  { id:"ik5", slug:"fazla-mesai-ucreti-nasil-hesaplanir", kat:"isci", soru:"Fazla mesai ücreti nasıl hesaplanır?", cevap:"Haftalık <strong>45 saati aşan</strong> çalışmalar fazla mesaidir. Ücret <strong>%50 zamlı</strong> ödenir. Yılda en fazla <strong>270 saat</strong> yaptırılabilir. Ücret yerine <strong>1,5 kat serbest zaman</strong> da verilebilir. Zamanaşımı <strong>5 yıldır</strong>.", benzer:["ik2","ik3"] },
+  { id:"ik6", slug:"isveren-maas-odememezse-ne-yapilir", kat:"isci", soru:"İşveren maaş ödemezse ne yapılır?", cevap:"Ücret <strong>20 gün ödenmezse</strong> işçi çalışmayı durdurabilir (grev sayılmaz). Haklı nedenle feshedip <strong>kıdem tazminatı</strong> talep edebilir. Çalışma Bakanlığı'na şikâyet ve <strong>iş mahkemesine alacak davası</strong> açılabilir. Zamanaşımı <strong>5 yıldır</strong>.", benzer:["ik1","ik3"] },
+  { id:"ik7", slug:"istifa-eden-isci-ne-alir", kat:"isci", soru:"İstifa eden işçi ne alır?", cevap:"Kural olarak <strong>kıdem tazminatı alamaz</strong>. Ancak mobbing, ücret ödenmemesi gibi haklı nedenlerle istifa edilmişse tazminat talep edilebilir. Her durumda <strong>kullanılmayan izin ücreti ve fazla mesai alacağı</strong> talep edilebilir.", benzer:["ik1","ik3"] },
+  { id:"ik8", slug:"part-time-calisan-izin-hakki-var-mi", kat:"isci", soru:"Part-time çalışanın izin hakkı var mı?", cevap:"Haftada <strong>en az 30 saat</strong> çalışanlar için geçerlidir. İzin süresi tam zamanlıyla aynı; ücret <strong>fiilî çalışma saatine göre</strong> hesaplanır.", benzer:["ik4","ik5"] },
+  { id:"ik9", slug:"hamile-isci-haklari-nelerdir", kat:"isci", soru:"Hamile işçinin hakları nelerdir?", cevap:"4857 sayılı Kanun'un 74. maddesi: doğum öncesi <strong>8 hafta</strong>, sonrası <strong>8 hafta</strong> toplam <strong>16 haftalık ücretli izin</strong>. Hamilelik nedeniyle işten çıkarma <strong>haksız fesih</strong> sayılır. İstek halinde <strong>6 aya kadar ücretsiz izin</strong> de tanınır.", benzer:["ik3","ik4"] },
+  { id:"ik10", slug:"mobbing-nedir-ne-yapilir", kat:"isci", soru:"İşyerinde mobbing nedir, ne yapılabilir?", cevap:"Sistematik psikolojik baskı, dışlama ve yıldırma davranışlarıdır. Türk Borçlar Kanunu'nun 417. maddesi işvereni korumakla yükümlü kılar. Mağdur; <strong>haklı nedenle feshedip kıdem tazminatı</strong> alabilir, <strong>manevi tazminat davası</strong> açabilir. İspatı için <strong>tüm yazışmalar ve belgeler</strong> saklanmalıdır.", benzer:["ik3","ik6"] },
+  { id:"ik11", slug:"isci-kilik-kiyafet-zorunlulugu-var-mi", kat:"isci", soru:"İşçi kılık kıyafet zorunluluğuna uymak zorunda mı?", cevap:"Meşru ve orantılı kurallar <strong>bağlayıcıdır</strong>. Din, vicdan veya kişilik haklarını ihlal eden kurallar geçersizdir. Uymayan işçi <strong>disiplin yaptırımıyla</strong> karşılaşabilir.", benzer:["ik3","ik7"] },
+  { id:"ik12", slug:"isci-esnek-calisma-talep-edebilir-mi", kat:"isci", soru:"İşçi esnek çalışma talep edebilir mi?", cevap:"Doğrudan talep edilebilir bir hak değildir; <strong>işverenin onayı gerekir</strong>. Düzenleme <strong>yazılı protokolle</strong> hayata geçirilir. Küçük çocuğu olan veya engelli yakını bulunan işçiler bazı TİS'lerde öncelikli haktan yararlanabilir.", benzer:["ik4","ik8"] },
+  { id:"ik13", slug:"isci-sozlesmesi-olmadan-calistirilabilir-mi", kat:"isci", soru:"İşçi sözleşme olmadan çalıştırılabilir mi?", cevap:"Fiilî çalışmayla iş ilişkisi kurulur ve tüm yasal haklar doğar. Ancak yazılı sözleşme yoksa <strong>ispat yükü işçi aleyhine</strong> döner. Sözleşmenin yazılı yapılması ve bir nüshasının saklanması önerilir.", benzer:["ik3","ik6"] }
+];
+
+const KAT_AYAR = {
+  memur:    { isim:"Memur Hakları",  emoji:"🏛️", renk:"#2563eb", bg:"#f0f7ff", badgeBg:"#dbeafe", badgeRenk:"#1d4ed8" },
+  guvenlik: { isim:"Özel Güvenlik",  emoji:"🛡️", renk:"#dc2626", bg:"#fff5f5", badgeBg:"#fee2e2", badgeRenk:"#dc2626" },
+  is:       { isim:"İş Güvenliği",   emoji:"⚠️", renk:"#d97706", bg:"#fffbeb", badgeBg:"#fef3c7", badgeRenk:"#92400e" },
+  isci:     { isim:"İşçi Hakları",   emoji:"👷", renk:"#16a34a", bg:"#f0fdf4", badgeBg:"#dcfce7", badgeRenk:"#15803d" }
+};
+
+// ============================================================
+// SAYFA YÜKLENİNCE ÇALIŞIR
+// ============================================================
+const params = new URLSearchParams(window.location.search);
+const slug = params.get('slug');
+const soru = SORULAR.find(s => s.slug === slug);
+
+if (!soru) {
+  document.getElementById('icerik').innerHTML = `
+    <div class="hata">
+      <h2>😕 Sayfa Bulunamadı</h2>
+      <p>Aradığınız soru mevcut değil.</p>
+      <a href="/">Ana Sayfaya Dön</a>
+    </div>`;
+} else {
+  const k = KAT_AYAR[soru.kat];
+  const katUrl = soru.kat === 'is' ? 'is-guvenligi' : soru.kat === 'isci' ? 'isci-haklari' : soru.kat;
+
+  // Meta
+  document.getElementById('page-title').textContent = soru.soru + ' — HakBul';
+  const cevapTemiz = soru.cevap.replace(/<[^>]+>/g,'');
+  document.getElementById('page-desc').setAttribute('content', cevapTemiz.substring(0,155));
+  document.getElementById('canonical-url').setAttribute('href', 'https://hakbul.com.tr/soru.html?slug=' + soru.slug);
+
+  // FAQ Schema
+  document.getElementById('faq-schema').textContent = JSON.stringify({
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[{
+      "@type":"Question",
+      "name": soru.soru,
+      "acceptedAnswer":{"@type":"Answer","text": cevapTemiz}
+    }]
+  });
+
+  // Benzer sorular
+  const benzerHTML = (soru.benzer || []).map(bid => {
+    const b = SORULAR.find(s => s.id === bid);
+    if (!b) return '';
+    const bk = KAT_AYAR[b.kat];
+    return `<a class="benzer-item" href="/soru.html?slug=${b.slug}" style="border-color:#e2e8f0;">
+      <span>${bk.emoji} ${b.soru}</span>
+      <span class="benzer-arrow" style="color:${bk.renk}">›</span>
+    </a>`;
+  }).join('');
+
+  // İçerik
+  document.getElementById('icerik').innerHTML = `
+    <div class="breadcrumb">
+      <a href="/">Ana Sayfa</a> ›
+      <a href="/index.html#/sorular/${katUrl}">${k.isim}</a> ›
+      <span style="color:#1e293b;font-weight:700;">${soru.soru.length>50?soru.soru.substring(0,50)+'...':soru.soru}</span>
+    </div>
+
+    <div class="soru-kart">
+      <div class="kat-badge" style="background:${k.badgeBg};color:${k.badgeRenk};">
+        ${k.emoji} ${k.isim}
+      </div>
+      <h1 class="soru-baslik">${soru.soru}</h1>
+    </div>
+
+    <div class="cevap-kart">
+      <div class="cevap-baslik">✅ Cevap</div>
+      <div class="cevap-metin" style="border-left-color:${k.renk};background:${k.bg};">
+        ${soru.cevap}
+      </div>
+      <div class="uyari">
+        ⚠️ Bu bilgiler yalnızca genel bilgilendirme amaçlıdır; hukuki danışmanlık niteliği taşımaz.
+        Kendi durumunuz için bir iş hukuku avukatına danışmanızı öneririz.
+      </div>
+    </div>
+
+    ${benzerHTML ? `<div class="benzer-kart">
+      <div class="benzer-baslik">🔗 Benzer Sorular</div>
+      ${benzerHTML}
+    </div>` : ''}
+  `;
+}
+</script>
+</body>
+</html>

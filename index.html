@@ -1008,7 +1008,7 @@ function renderHome() {
   const sonSorular = [...SORULAR].slice(-6).reverse();
   container.innerHTML = sonSorular.map(s => {
     const k = KAT_AYAR[s.kat];
-    return `<a class="q-item" onclick="window.location.href='/soru.html?slug='+s.slug" style="cursor:pointer">
+    return `<a class="q-item" onclick="window.location.href='/soru.html?slug=${s.slug}'" style="cursor:pointer">
       <span class="q-text">❓ ${s.soru}</span>
       <span class="q-badge" style="background:${k.badgeBg};color:${k.badgeRenk}">${k.emoji} ${k.isim}</span>
     </a>`;
@@ -1037,7 +1037,7 @@ function renderSorular(katFilter) {
     html += `<div class="cat-section">
       <div class="cat-section-title"><span style="font-size:20px">${k.emoji}</span><h3>${k.isim}</h3></div>`;
     katSorulari.forEach(s => {
-      html += `<div class="soru-list-item" onclick="window.location.href='/soru.html?slug='+s.slug" style="color:${k.renk}">
+      html += `<div class="soru-list-item" onclick="window.location.href='/soru.html?slug=${s.slug}'" style="color:${k.renk}">
         <span class="soru-list-q">❓ ${s.soru}</span>
         <span class="soru-list-arrow">›</span>
       </div>`;
@@ -1085,7 +1085,7 @@ function renderDetay(slug) {
     const b = soruById(bid);
     if (!b) return '';
     const bk = KAT_AYAR[b.kat];
-    return `<div class="benzer-item" onclick="window.location.href='/soru.html?slug='+b.slug">
+    return `<div class="benzer-item" onclick="window.location.href='/soru.html?slug=${b.slug}'">
       <span>${bk.emoji} ${b.soru}</span>
       <span style="color:${bk.renk};font-size:18px">›</span>
     </div>`;
@@ -1264,7 +1264,7 @@ function handleSearch(val) {
   if (filtered.length === 0) { results.classList.remove('show'); return; }
   results.innerHTML = filtered.map(s => {
     const k = KAT_AYAR[s.kat];
-    return `<div class="search-result-item" onclick="window.location.href='/soru.html?slug='+s.slug">
+    return `<div class="search-result-item" onclick="window.location.href='/soru.html?slug=${s.slug}'">
       <span class="search-result-q">${s.soru}</span>
       <span class="search-result-cat">${k.emoji} ${k.isim}</span>
     </div>`;
